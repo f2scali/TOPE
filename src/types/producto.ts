@@ -3,6 +3,7 @@ export interface Producto {
   ID_Producto: string;
   ID_TIPO_INVENTARIO: number;
   ID_ITEM: string;
+  DESCRIPCION: string;
   ID_REFERENCIA: string;
   UNIMED_INV_1: string;
   ID_LINEA: string;
