@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import productoSlice from '../slices/productos/producto.slice';
-import { useDispatch } from 'react-redux';
+import rutasSlice from '../slices/rutas/rutas.slice';
 const store = configureStore({
   reducer: {
     productos: productoSlice,
+    rutas: rutasSlice,
   },
 });
 
