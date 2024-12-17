@@ -12,7 +12,7 @@ import { Label } from '@/components/ui/label';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { AppDispatch, RootState } from '@/redux/store/store';
-import { FormEvent } from 'react';
+import { FormEvent, useEffect } from 'react';
 import { thunks } from '@/redux/slices/auth/thunks';
 import { thunks as routesThunks } from '@/redux/slices/rutas/thunks';
 export function LoginForm({
@@ -25,6 +25,12 @@ export function LoginForm({
     (state: RootState) => state.auth
   );
 
+  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -41,7 +47,6 @@ export function LoginForm({
       navigate('/');
     }
   };
-  console.log('token', token);
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
       <Card>

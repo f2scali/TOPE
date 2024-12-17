@@ -1,6 +1,5 @@
 import api from '@/services/axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
 
 export const thunks = {
   fetchProductos: createAsyncThunk(
@@ -15,7 +14,7 @@ export const thunks = {
     ) => {
       try {
         const response = await api.get(
-          `http://localhost:3000/producto?page=${currentPage}&search=${search}&limit=${limit}`
+          `producto?page=${currentPage}&search=${search}&limit=${limit}`
         );
         return {
           productos: response.data.data,

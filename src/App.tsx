@@ -1,89 +1,35 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import './App.css';
-import { AppDispatch, RootState } from './redux/store/store';
-import { thunks } from './redux/slices/productos/thunks';
-import { ChangeEvent, useEffect, useState } from 'react';
-import {
-  setCurrentPage,
-  setSearch,
-} from './redux/slices/productos/producto.slice';
-import AppRouter from './routes/routes';
+import { RootState } from './redux/store/store';
+
+import { AuthProvider, AppRouter } from './routes/routes';
+import { Layout } from './layout/Layout';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import PrivateRoute from './routes/privateRoute';
+import { Login } from './pages/Login';
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const dispatch = useDispatch<AppDispatch>();
-
-  const { productos, loading, currentPage, search, limit, totalPages } =
-    useSelector((state: RootState) => state.productos);
-
-  useEffect(() => {
-    dispatch(thunks.fetchProductos({ currentPage, search, limit }));
-  }, [search, currentPage, limit]);
-
-  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSearch(e.target.value));
-    dispatch(setCurrentPage(1));
-  };
-
-  const handlePageChange = (page: number) => {
-    dispatch(setCurrentPage(page));
-  };
-
   return (
-    <>
-      {/* <div>
-        <h1>Productos</h1>
-        <input
-          type="text"
-          placeholder="Buscar productos"
-          value={search}
-          onChange={handleSearchChange}
-          autoFocus
-        />
-        {loading ? (
-          <p>Cargando...</p>
-        ) : (
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Precio</th>
-              </tr>
-            </thead>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/login" element={<Login />} />
 
-            <tbody>
-              {productos.map((producto) => (
-                <tr key={producto.ID}>
-                  <td>{producto.ID}</td>
-                  <td>{producto.DESCRIPCION}</td>
-                  <td>{producto.COSTO}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
+          <Route element={<PrivateRoute />}>
+            <Route
+              path="/*"
+              element={
+                <Layout>
+                  <AppRouter />
+                </Layout>
+              }
+            />
+          </Route>
 
-        <div>
-          <button
-            disabled={currentPage === 1}
-            onClick={() => handlePageChange(currentPage - 1)}
-          >
-            Anterior
-          </button>
-          <span>Página {currentPage}</span>
-
-          <button
-            disabled={currentPage === totalPages || loading}
-            onClick={() => handlePageChange(currentPage + 1)}
-          >
-            Siguiente
-          </button>
-        </div>
-        <p>{totalPages} productos</p>
-      </div> */}
-      <AppRouter isAuthenticated={isAuthenticated} />
-    </>
+          <Route path="*" element={<Navigate to={'/login'} replace />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 

@@ -1,64 +1,79 @@
-import { FC, useEffect } from 'react';
-import PrivateRoute, { PrivateRouteProps } from './privateRoute';
+import {
+  createContext,
+  FC,
+  Fragment,
+  lazy,
+  ReactNode,
+  Suspense,
+  useContext,
+  useEffect,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../redux/store/store';
-import { thunks } from '../redux/slices/rutas/thunks';
-import { Rutas } from '../types/rutas';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { Login } from '../pages/Login';
-import { Layout } from '../layout/Layout';
-interface AppRouterProps extends PrivateRouteProps {}
-const AppRouter: FC<AppRouterProps> = ({ isAuthenticated }) => {
-  const dispatch = useDispatch<AppDispatch>();
-
+import { Route, Routes } from 'react-router-dom';
+import { thunks } from '@/redux/slices/rutas/thunks';
+import Productos from '@/pages/Productos';
+export const AppRouter = () => {
   const { rutas } = useSelector((state: RootState) => state.rutas);
+  const dispatch = useDispatch<AppDispatch>();
+  const LazyComponent = (name: string) =>
+    lazy(() => import(`../pages/${name}`));
 
   useEffect(() => {
     dispatch(thunks.fetchRutas());
-  }, []);
+  }, [dispatch]);
+  console.log('rutas', rutas);
+  return (
+    <Suspense fallback={<div>Cargando...</div>}>
+      <Routes>
+        {rutas.map((route) => {
+          const Component = LazyComponent(route.descripcion);
+          return (
+            <Fragment key={route.id}>
+              <Route path={route.path} element={<Component />} />
+              {route.subrutas.map((subruta) => {
+                const SubComponent = LazyComponent(subruta.descripcion);
+                return (
+                  <Route
+                    key={subruta.id}
+                    path={subruta.path}
+                    element={<SubComponent />}
+                  />
+                );
+              })}
+            </Fragment>
+          );
+        })}
+        <Route path="/productos" element={<Productos />} />
+        <Route path="/" element={<h1>Home</h1>} />
+      </Routes>
+    </Suspense>
+  );
+};
+interface AuthContextProps {
+  isAuthenticated: boolean;
+  // rutas: Rutas[];
+}
+const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
-  const renderRoutes = (routes: Rutas[]) => {
-    return routes.map((route) => (
-      <>
-        <Route
-          key={route.id}
-          path={route.path}
-          element={<route.descripcion />}
-        />
+export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
+  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
 
-        {route.subrutas.map((subruta) => (
-          <Route
-            key={subruta.id}
-            path={subruta.path}
-            element={<subruta.descripcion />}
-          />
-        ))}
-      </>
-    ));
-  };
+  console.log('isAuthenticated', isAuthenticated);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Login />} />
-
-        <Route element={<PrivateRoute isAuthenticated={isAuthenticated} />}>
-          <Route element={<Layout />}>{renderRoutes(rutas)}</Route>
-        </Route>
-
-        <Route
-          path="*"
-          element={
-            isAuthenticated ? (
-              <Navigate to={rutas[0]?.path || '/login'} replace />
-            ) : (
-              <Navigate to={'/login'} replace />
-            )
-          }
-        />
-      </Routes>
-    </BrowserRouter>
+    <AuthContext.Provider value={{ isAuthenticated }}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 
-export default AppRouter;
+export const useAuth = (): AuthContextProps => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+
+  return context;
+};
+// export default AppRouter;

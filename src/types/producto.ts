@@ -1,13 +1,13 @@
 export interface Producto {
-  ID: number;
-  ID_Producto: string;
-  ID_TIPO_INVENTARIO: number;
-  ID_ITEM: string;
-  DESCRIPCION: string;
-  ID_REFERENCIA: string;
-  UNIMED_INV_1: string;
-  ID_LINEA: string;
-  ID_CRICLA1: string;
-  COSTO: number;
+  id: number;
+  id_item: string;
+  id_ext_item: string;
+  id_inventario: number;
+  id_linea: number;
+  descripcion: string;
+  id_referencia: number;
+  unimed_inv_1: string;
+  id_cricla1: string;
+  costo: number;
   estado: number;
 }

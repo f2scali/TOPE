@@ -1,5 +1,13 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const Layout = ({ children }: any) => {
-  return <div>{children}</div>;
+  return (
+    <div>
+      <h1>Layout</h1>
+      <button>
+        <Link to="productos">Productos</Link>
+      </button>
+      {children}
+    </div>
+  );
 };
