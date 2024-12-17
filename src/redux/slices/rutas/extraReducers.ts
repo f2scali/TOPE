@@ -9,9 +9,9 @@ const extraReducers = (builder: any) => {
     })
     .addCase(
       thunks.fetchRutas.fulfilled,
-      (state: RutasState, action: PayloadAction<RutasState>) => {
+      (state: RutasState, action: PayloadAction<any>) => {
         state.loading = false;
-        state.rutas = action.payload.rutas;
+        state.rutas = action.payload;
       }
     )
     .addCase(

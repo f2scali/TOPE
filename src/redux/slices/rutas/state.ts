@@ -5,6 +5,7 @@ export interface RutasState {
   loading: boolean;
   error: null | string;
 }
+
 const initialState: RutasState = {
   rutas: [],
   loading: false,

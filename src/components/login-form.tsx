@@ -9,11 +9,39 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { AppDispatch, RootState } from '@/redux/store/store';
+import { FormEvent } from 'react';
+import { thunks } from '@/redux/slices/auth/thunks';
+import { thunks as routesThunks } from '@/redux/slices/rutas/thunks';
 export function LoginForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<'div'>) {
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+  const { token, loading, error } = useSelector(
+    (state: RootState) => state.auth
+  );
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+
+    const credentials = {
+      usuario: formData.get('usuario') as string,
+      contraseña: formData.get('password') as string,
+    };
+    console.log('credentials', credentials);
+    const result = dispatch(thunks.login(credentials));
+
+    if (thunks.login.fulfilled.match(result)) {
+      dispatch(routesThunks.fetchRutas());
+      navigate('/');
+    }
+  };
+  console.log('token', token);
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
       <Card>
@@ -24,11 +52,12 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
                 <Label htmlFor="usuario">Usuario</Label>
                 <Input
+                  name="usuario"
                   id="usuario"
                   type="usuario"
                   placeholder="example23"
@@ -45,7 +74,7 @@ export function LoginForm({
                     Forgot your password?
                   </a> */}
                 </div>
-                <Input id="password" type="password" required />
+                <Input id="password" name="password" type="password" required />
               </div>
               <Button type="submit" className="w-full">
                 Login

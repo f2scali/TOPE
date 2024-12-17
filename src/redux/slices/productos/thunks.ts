@@ -1,3 +1,4 @@
+import api from '@/services/axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -13,7 +14,7 @@ export const thunks = {
       { rejectWithValue }
     ) => {
       try {
-        const response = await axios.get(
+        const response = await api.get(
           `http://localhost:3000/producto?page=${currentPage}&search=${search}&limit=${limit}`
         );
         return {

@@ -4,3 +4,8 @@ export interface Rutas {
   path: string;
   subrutas: any[];
 }
+
+export interface SubRutas {
+  id: number;
+  descripcion: string;
+}
