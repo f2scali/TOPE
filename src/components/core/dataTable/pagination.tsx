@@ -26,7 +26,6 @@ export function DataTablePagination({
   handleLimitChange,
   handlePageChange,
 }: DataTablePaginationProps) {
-  console.log('page', page);
   return (
     <div className="flex items-center justify-between px-2">
       <div className="flex items-center space-x-2">

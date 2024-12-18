@@ -16,17 +16,17 @@ export const columns: ColumnDef<Producto>[] = [
     ),
   },
   {
-    accessorKey: 'id_inventario',
+    accessorFn: (row) => row.tipoInventario?.detalle,
     header: 'Inventario',
-    cell: ({ row }) => (
-      <div className="text-left">{row.getValue('id_inventario')}</div>
+    cell: ({ cell }) => (
+      <div className="text-left">{`${cell.getValue()}` || 'Sin Tipo Inv'}</div>
     ),
   },
   {
-    accessorKey: 'id_linea',
+    accessorFn: (row) => row.linea?.detalle,
     header: 'Línea',
-    cell: ({ row }) => (
-      <div className="text-left">{row.getValue('id_linea')}</div>
+    cell: ({ cell }) => (
+      <div className="text-left">{`${cell.getValue()}` || 'Sin Linea'}</div>
     ),
   },
   {
@@ -44,17 +44,19 @@ export const columns: ColumnDef<Producto>[] = [
     ),
   },
   {
-    accessorKey: 'unimed_inv_1',
+    accessorFn: (row) => row.unidadMed?.Detalle,
     header: 'Unidad Medida',
-    cell: ({ row }) => (
-      <div className="text-left">{row.getValue('unimed_inv_1')}</div>
+    cell: ({ cell }) => (
+      <div className="text-left">
+        {`${cell.getValue()}` || 'Sin Unidad Med'}
+      </div>
     ),
   },
   {
-    accessorKey: 'id_cricla1',
+    accessorFn: (row) => row.criterio?.Detalle,
     header: 'Cricla',
-    cell: ({ row }) => (
-      <div className="text-left">{row.getValue('id_cricla1')}</div>
+    cell: ({ cell }) => (
+      <div className="text-left">{`${cell.getValue()}` || 'Sin criterio'}</div>
     ),
   },
   {
