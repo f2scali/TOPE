@@ -14,23 +14,21 @@ import { useNavigate } from 'react-router-dom';
 import { AppDispatch, RootState } from '@/redux/store/store';
 import { FormEvent, useEffect } from 'react';
 import { thunks } from '@/redux/slices/auth/thunks';
-import { thunks as routesThunks } from '@/redux/slices/rutas/thunks';
 export function LoginForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<'div'>) {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const { token, loading, error } = useSelector(
-    (state: RootState) => state.auth
-  );
 
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
+
   useEffect(() => {
     if (isAuthenticated) {
       navigate('/');
     }
   }, [isAuthenticated, navigate]);
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -39,14 +37,9 @@ export function LoginForm({
       usuario: formData.get('usuario') as string,
       contraseña: formData.get('password') as string,
     };
-    console.log('credentials', credentials);
-    const result = dispatch(thunks.login(credentials));
-
-    if (thunks.login.fulfilled.match(result)) {
-      dispatch(routesThunks.fetchRutas());
-      navigate('/');
-    }
+    dispatch(thunks.login(credentials));
   };
+
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
       <Card>

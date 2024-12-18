@@ -1,14 +1,10 @@
 import { Sidebar } from '@/components/sidebar/sidebar';
 import { cn } from '@/lib/utils';
-import { toggleSidebar } from '@/redux/slices/sidebar/sidebar.slice';
-import { AppDispatch, RootState } from '@/redux/store/store';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { RootState } from '@/redux/store/store';
+import { useSelector } from 'react-redux';
 
 export const Layout = ({ children }: any) => {
-  const dispatch = useDispatch<AppDispatch>();
   const sidebar = useSelector((state: RootState) => state.sidebar);
-  console.log('sidebar', sidebar);
 
   if (!sidebar) return null;
   return (

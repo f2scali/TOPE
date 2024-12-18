@@ -11,18 +11,19 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../redux/store/store';
 import { Route, Routes } from 'react-router-dom';
-import { thunks } from '@/redux/slices/rutas/thunks';
+import { thunks as rutasThunks } from '@/redux/slices/rutas/thunks';
 import Productos from '@/pages/Productos';
+import { Home } from '@/pages/Home';
 export const AppRouter = () => {
   const { rutas } = useSelector((state: RootState) => state.rutas);
   const dispatch = useDispatch<AppDispatch>();
   const LazyComponent = (name: string) =>
-    lazy(() => import(`../pages/${name}`));
+    lazy(() => import(`../pages/${name}.tsx`));
 
   useEffect(() => {
-    dispatch(thunks.fetchRutas());
+    dispatch(rutasThunks.fetchRutas());
   }, [dispatch]);
-  console.log('rutas', rutas);
+
   return (
     <Suspense fallback={<div>Cargando...</div>}>
       <Routes>
@@ -44,8 +45,7 @@ export const AppRouter = () => {
             </Fragment>
           );
         })}
-        <Route path="/productos" element={<Productos />} />
-        <Route path="/" element={<h1>Home</h1>} />
+        <Route path="/" element={<Home />} />
       </Routes>
     </Suspense>
   );
@@ -58,8 +58,6 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
-
-  console.log('isAuthenticated', isAuthenticated);
 
   return (
     <AuthContext.Provider value={{ isAuthenticated }}>

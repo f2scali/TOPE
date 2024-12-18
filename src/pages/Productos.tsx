@@ -1,3 +1,4 @@
+import { ContentLayout } from '@/layout/Content-layout';
 import {
   setCurrentPage,
   setSearch,
@@ -28,61 +29,63 @@ const Productos = () => {
   };
   console.log('productos', productos);
   return (
-    <div className="h-screen flex flex-col">
-      <input
-        type="text"
-        className="text-white"
-        placeholder="Buscar productos"
-        value={search}
-        onChange={handleSearchChange}
-        autoFocus
-      />
-      {loading ? (
-        <p>Cargando...</p>
-      ) : (
-        <table>
-          <thead>
-            <tr>
-              <th>CODIGO</th>
-              <th>Nombre</th>
-              <th>Precio</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {productos.map((producto) => (
-              <tr key={producto.id}>
-                <td>
-                  {`${producto.id_item}${
-                    producto.id_ext_item ? `-${producto.id_ext_item}` : ''
-                  }`}
-                </td>
-                <td>{producto.descripcion}</td>
-                <td>{producto.costo}</td>
+    <ContentLayout title="Productos">
+      <div className="h-screen flex flex-col">
+        <input
+          type="text"
+          className="text-white"
+          placeholder="Buscar productos"
+          value={search}
+          onChange={handleSearchChange}
+          autoFocus
+        />
+        {loading ? (
+          <p>Cargando...</p>
+        ) : (
+          <table>
+            <thead>
+              <tr>
+                <th>CODIGO</th>
+                <th>Nombre</th>
+                <th>Precio</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+            </thead>
 
-      <div>
-        <button
-          disabled={currentPage === 1}
-          onClick={() => handlePageChange(currentPage - 1)}
-        >
-          Anterior
-        </button>
-        <span>Página {currentPage}</span>
+            <tbody>
+              {productos.map((producto) => (
+                <tr key={producto.id}>
+                  <td>
+                    {`${producto.id_item}${
+                      producto.id_ext_item ? `-${producto.id_ext_item}` : ''
+                    }`}
+                  </td>
+                  <td>{producto.descripcion}</td>
+                  <td>{producto.costo}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
 
-        <button
-          disabled={currentPage === totalPages || loading}
-          onClick={() => handlePageChange(currentPage + 1)}
-        >
-          Siguiente
-        </button>
+        <div>
+          <button
+            disabled={currentPage === 1}
+            onClick={() => handlePageChange(currentPage - 1)}
+          >
+            Anterior
+          </button>
+          <span>Página {currentPage}</span>
+
+          <button
+            disabled={currentPage === totalPages || loading}
+            onClick={() => handlePageChange(currentPage + 1)}
+          >
+            Siguiente
+          </button>
+        </div>
+        <p>{totalPages} productos</p>
       </div>
-      <p>{totalPages} productos</p>
-    </div>
+    </ContentLayout>
   );
 };
 

@@ -28,7 +28,7 @@ const store = configureStore({
     auth: authSlice,
     sidebar: persistedReducer,
   },
-  middleware: (getDefaultMiddleware: any) =>
+  middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
