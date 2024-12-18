@@ -1,6 +1,9 @@
+import { DataTable } from '@/components/core/dataTable/data-table';
+import { columns } from '@/components/productosTable/columns';
 import { ContentLayout } from '@/layout/Content-layout';
 import {
   setCurrentPage,
+  setLimit,
   setSearch,
 } from '@/redux/slices/productos/producto.slice';
 import { thunks } from '@/redux/slices/productos/thunks';
@@ -17,74 +20,46 @@ const Productos = () => {
 
   useEffect(() => {
     dispatch(thunks.fetchProductos({ currentPage, search, limit }));
-  }, [search, currentPage, limit]);
+  }, []);
 
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSearch(e.target.value));
+    dispatch(thunks.fetchProductos({ currentPage: 1, search, limit }));
     dispatch(setCurrentPage(1));
+    dispatch(setSearch(e.target.value));
+  };
+
+  const clearSearch = () => {
+    dispatch(setCurrentPage(1));
+    dispatch(setSearch(''));
+    dispatch(thunks.fetchProductos({ currentPage: 1, search: '', limit }));
   };
 
   const handlePageChange = (page: number) => {
     dispatch(setCurrentPage(page));
+    dispatch(thunks.fetchProductos({ currentPage: page, search, limit }));
   };
-  console.log('productos', productos);
+
+  const handleLimitChange = (limit: number) => {
+    dispatch(thunks.fetchProductos({ currentPage: 1, search, limit }));
+    dispatch(setCurrentPage(1));
+    dispatch(setLimit(limit));
+  };
+
   return (
     <ContentLayout title="Productos">
-      <div className="h-screen flex flex-col">
-        <input
-          type="text"
-          className="text-white"
-          placeholder="Buscar productos"
-          value={search}
-          onChange={handleSearchChange}
-          autoFocus
-        />
-        {loading ? (
-          <p>Cargando...</p>
-        ) : (
-          <table>
-            <thead>
-              <tr>
-                <th>CODIGO</th>
-                <th>Nombre</th>
-                <th>Precio</th>
-              </tr>
-            </thead>
+      <h1 className="text-3xl text-left mb-4 font-bold">Productos</h1>
 
-            <tbody>
-              {productos.map((producto) => (
-                <tr key={producto.id}>
-                  <td>
-                    {`${producto.id_item}${
-                      producto.id_ext_item ? `-${producto.id_ext_item}` : ''
-                    }`}
-                  </td>
-                  <td>{producto.descripcion}</td>
-                  <td>{producto.costo}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-
-        <div>
-          <button
-            disabled={currentPage === 1}
-            onClick={() => handlePageChange(currentPage - 1)}
-          >
-            Anterior
-          </button>
-          <span>Página {currentPage}</span>
-
-          <button
-            disabled={currentPage === totalPages || loading}
-            onClick={() => handlePageChange(currentPage + 1)}
-          >
-            Siguiente
-          </button>
-        </div>
-        <p>{totalPages} productos</p>
-      </div>
+      <DataTable
+        columns={columns}
+        data={productos}
+        search={search}
+        handleSearchChange={handleSearchChange}
+        handlePageChange={handlePageChange}
+        handleLimitChange={handleLimitChange}
+        limit={limit}
+        page={currentPage}
+        clearSearch={clearSearch}
+      />
     </ContentLayout>
   );
 };
