@@ -1,5 +1,4 @@
 import { Button } from '../ui/button';
-import Logo from '../../../public/logo1.svg';
 import {
   Sheet,
   SheetContent,

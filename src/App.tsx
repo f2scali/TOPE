@@ -1,6 +1,4 @@
-import { useSelector } from 'react-redux';
 import './App.css';
-import { RootState } from './redux/store/store';
 
 import { AuthProvider, AppRouter } from './routes/routes';
 import { Layout } from './layout/Layout';
