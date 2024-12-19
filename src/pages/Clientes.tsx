@@ -1,26 +1,25 @@
 import { DataTable } from '@/components/core/dataTable/data-table';
-import { columns } from '@/components/Tables/productosTable/columns';
+import { columns } from '@/components/Tables/clientesTable/columns';
 import { ContentLayout } from '@/layout/Content-layout';
 import {
   setCurrentPage,
   setLimit,
   setSearch,
-} from '@/redux/slices/productos/producto.slice';
-import { thunks } from '@/redux/slices/productos/thunks';
+} from '@/redux/slices/clientes/clientes.slice';
+import { thunks } from '@/redux/slices/clientes/thunks';
 import { AppDispatch, RootState } from '@/redux/store/store';
-
 import { ChangeEvent, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-const Productos = () => {
+const Clientes = () => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const { productos, loading, currentPage, search, limit, totalPages } =
-    useSelector((state: RootState) => state.productos);
+  const { clientes, currentPage, error, limit, loading, search, totalPages } =
+    useSelector((state: RootState) => state.clientes);
 
   useEffect(() => {
-    dispatch(thunks.fetchProductos({ currentPage, search, limit }));
-  }, [search, currentPage, limit, dispatch]);
+    dispatch(thunks.fetchClientes({ currentPage, search, limit }));
+  }, [currentPage, search, limit, dispatch]);
 
   console.log(search, 'buscador');
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -41,14 +40,12 @@ const Productos = () => {
     dispatch(setCurrentPage(1));
     dispatch(setLimit(limit));
   };
-
   return (
-    <ContentLayout title="Productos">
-      <h1 className="text-3xl text-left mb-4 font-bold">Productos</h1>
-
+    <ContentLayout title="Clientes">
+      <h1 className="text-3xl text-left mb-4 font-bold">Clientes</h1>
       <DataTable
         columns={columns}
-        data={productos}
+        data={clientes}
         search={search}
         handleSearchChange={handleSearchChange}
         handlePageChange={handlePageChange}
@@ -61,4 +58,4 @@ const Productos = () => {
   );
 };
 
-export default Productos;
+export default Clientes;

@@ -1,6 +1,7 @@
+import { DataTableRowActions } from '@/components/core/dataTable/row-actions';
 import { Producto } from '@/types/producto';
 import { ColumnDef } from '@tanstack/react-table';
-import { DataTableRowActions } from '../core/dataTable/row-actions';
+
 import { FaEdit } from 'react-icons/fa';
 import { FaDeleteLeft } from 'react-icons/fa6';
 export const columns: ColumnDef<Producto>[] = [

@@ -3,6 +3,7 @@ import productoSlice from '../slices/productos/producto.slice';
 import rutasSlice from '../slices/rutas/rutas.slice';
 import authSlice from '../slices/auth/auth.slice';
 import sidebarSLice from '../slices/sidebar/sidebar.slice';
+import clientesSlice from '../slices/clientes/clientes.slice';
 import storage from 'redux-persist/lib/storage';
 import {
   FLUSH,
@@ -26,6 +27,7 @@ const store = configureStore({
     productos: productoSlice,
     rutas: rutasSlice,
     auth: authSlice,
+    clientes: clientesSlice,
     sidebar: persistedReducer,
   },
   middleware: (getDefaultMiddleware) =>
