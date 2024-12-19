@@ -2,8 +2,8 @@ import api from '@/services/axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const thunks = {
-  fetchSublineas: createAsyncThunk(
-    'subLineas/fetchSublineas',
+  fetchDetalleLineas: createAsyncThunk(
+    'detalleLineas/fetchDetalleLineas',
     async (
       {
         currentPage,
@@ -14,11 +14,11 @@ export const thunks = {
     ) => {
       try {
         const response = await api.get(
-          `sublinea?page=${currentPage}&search=${search}&limit=${limit}`
+          `detLinea?page=${currentPage}&search=${search}&limit=${limit}`
         );
 
         return {
-          subLineas: response.data.data,
+          detalleLineas: response.data.data,
           total: response.data.total,
           totalPages: response.data.totalPages,
         };

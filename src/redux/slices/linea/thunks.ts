@@ -16,7 +16,7 @@ export const thunks = {
         const response = await api.get(
           `linea?page=${currentPage}&search=${search}&limit=${limit}`
         );
-        console.log('se ejecuto');
+
         return {
           lineas: response.data.data,
           total: response.data.total,
