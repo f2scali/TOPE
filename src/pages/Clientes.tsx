@@ -17,9 +17,10 @@ const Clientes = () => {
 
   const dispatch = useDispatch<AppDispatch>();
   const debouncedSearch = useDebounce(localSearch, 300);
-  const { clientes, currentPage, error, limit, loading, totalPages } =
+  const { clientes, currentPage, error, limit, loading, total, totalPages } =
     useSelector((state: RootState) => state.clientes);
 
+  console.log(totalPages);
   useEffect(() => {
     dispatch(
       thunks.fetchClientes({ currentPage, search: debouncedSearch, limit })
@@ -59,6 +60,8 @@ const Clientes = () => {
         limit={limit}
         page={currentPage}
         clearSearch={clearSearch}
+        total={total}
+        totalPages={totalPages}
       />
     </ContentLayout>
   );

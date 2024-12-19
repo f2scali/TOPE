@@ -4,6 +4,7 @@ export interface ProductoState {
   productos: Producto[];
   loading: boolean;
   error: null | string;
+  total: number;
   totalPages: number;
   currentPage: number;
   limit: number;
@@ -13,6 +14,7 @@ const initialState: ProductoState = {
   productos: [],
   loading: false,
   error: null,
+  total: 0,
   totalPages: 0,
   currentPage: 1,
   limit: 10,

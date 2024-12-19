@@ -24,6 +24,8 @@ interface DataTableProps<TData, TValue> {
   search: string;
   page: number;
   limit: number;
+  total: number;
+  totalPages: number;
   handleSearchChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handlePageChange: (page: number) => void;
   handleLimitChange: (limit: number) => void;
@@ -36,6 +38,8 @@ export function DataTable<TData, TValue>({
   search,
   page,
   limit,
+  total,
+  totalPages,
   handleSearchChange,
   handlePageChange,
   handleLimitChange,
@@ -111,6 +115,8 @@ export function DataTable<TData, TValue>({
         handleLimitChange={handleLimitChange}
         page={page}
         limit={limit}
+        total={total}
+        totalPages={totalPages}
       />
     </div>
   );

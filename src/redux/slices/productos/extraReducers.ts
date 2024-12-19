@@ -12,6 +12,7 @@ const extraReducers = (builder: any) => {
       (state: ProductoState, action: PayloadAction<ProductoState>) => {
         state.loading = false;
         state.productos = action.payload.productos;
+        state.total = action.payload.total;
         state.totalPages = action.payload.totalPages;
       }
     )

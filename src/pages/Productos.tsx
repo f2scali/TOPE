@@ -17,9 +17,8 @@ const Productos = () => {
   const [localSearch, setLocalSearch] = useState('');
   const dispatch = useDispatch<AppDispatch>();
   const debouncedSearch = useDebounce(localSearch, 300);
-  const { productos, loading, currentPage, limit, totalPages } = useSelector(
-    (state: RootState) => state.productos
-  );
+  const { productos, loading, currentPage, limit, totalPages, total } =
+    useSelector((state: RootState) => state.productos);
 
   useEffect(() => {
     dispatch(
@@ -61,6 +60,8 @@ const Productos = () => {
         handleLimitChange={handleLimitChange}
         limit={limit}
         page={currentPage}
+        total={total}
+        totalPages={totalPages}
         clearSearch={clearSearch}
       />
     </ContentLayout>

@@ -13,6 +13,7 @@ const extraReducers = (builder: any) => {
         state.loading = false;
         state.clientes = action.payload.clientes;
         state.totalPages = action.payload.totalPages;
+        state.total = action.payload.total;
       }
     )
     .addCase(

@@ -16,6 +16,8 @@ import {
 interface DataTablePaginationProps {
   page: number;
   limit: number;
+  total: number;
+  totalPages: number;
   handleLimitChange: (limit: number) => void;
   handlePageChange: (page: number) => void;
 }
@@ -23,6 +25,8 @@ interface DataTablePaginationProps {
 export function DataTablePagination({
   page,
   limit,
+  total,
+  totalPages,
   handleLimitChange,
   handlePageChange,
 }: DataTablePaginationProps) {
@@ -47,11 +51,14 @@ export function DataTablePagination({
         </Select>
       </div>
       <div className="flex items-center space-x-2">
+        <p className="font-bold">
+          Total: <span className="font-normal">{total}</span>{' '}
+        </p>
         <Button
           variant="outline"
           className="hidden h-8 w-8 p-0 lg:flex"
           onClick={() => handlePageChange(1)}
-          //   disabled={!table.getCanPreviousPage()}
+          disabled={page === 1}
         >
           <span className="sr-only">{'Go to first page'}</span>
           <FaAnglesLeft className="h-4 w-4" />
@@ -60,7 +67,7 @@ export function DataTablePagination({
           variant="outline"
           className="h-8 w-8 p-0"
           onClick={() => handlePageChange(page - 1)}
-          //   disabled={!table.getCanPreviousPage()}
+          disabled={page === 1}
         >
           <span className="sr-only">{'Go to previous page'}</span>
           <FaChevronLeft className="h-4 w-4" />
@@ -70,7 +77,7 @@ export function DataTablePagination({
           variant="outline"
           className="h-8 w-8 p-0"
           onClick={() => handlePageChange(page + 1)}
-          //   disabled={!table.getCanNextPage()}
+          disabled={page === totalPages}
         >
           <span className="sr-only">{'Go to next page'}</span>
           <FaChevronRight className="h-4 w-4" />
@@ -78,8 +85,8 @@ export function DataTablePagination({
         <Button
           variant="outline"
           className="hidden h-8 w-8 p-0 lg:flex"
-          //   onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-          //   disabled={!table.getCanNextPage()}
+          onClick={() => handlePageChange(totalPages)}
+          disabled={page === totalPages}
         >
           <span className="sr-only">{'Go to last page'}</span>
           <FaAnglesRight className="h-4 w-4" />

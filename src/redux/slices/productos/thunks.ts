@@ -18,7 +18,8 @@ export const thunks = {
         );
         return {
           productos: response.data.data,
-          totalPages: response.data.total,
+          total: response.data.total,
+          totalPages: response.data.totalPages,
         };
       } catch (error: any) {
         return rejectWithValue(error.message || 'Error desconocido');
