@@ -1,5 +1,6 @@
 import { DataTable } from '@/components/core/dataTable/data-table';
 import { columns } from '@/components/Tables/productosTable/columns';
+import { useDebounce } from '@/hooks/useDebounce';
 import { ContentLayout } from '@/layout/Content-layout';
 import {
   setCurrentPage,
@@ -9,28 +10,33 @@ import {
 import { thunks } from '@/redux/slices/productos/thunks';
 import { AppDispatch, RootState } from '@/redux/store/store';
 
-import { ChangeEvent, useEffect } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Productos = () => {
+  const [localSearch, setLocalSearch] = useState('');
   const dispatch = useDispatch<AppDispatch>();
-
-  const { productos, loading, currentPage, search, limit, totalPages } =
-    useSelector((state: RootState) => state.productos);
+  const debouncedSearch = useDebounce(localSearch, 300);
+  const { productos, loading, currentPage, limit, totalPages } = useSelector(
+    (state: RootState) => state.productos
+  );
 
   useEffect(() => {
-    dispatch(thunks.fetchProductos({ currentPage, search, limit }));
-  }, [search, currentPage, limit, dispatch]);
+    dispatch(
+      thunks.fetchProductos({ currentPage, search: debouncedSearch, limit })
+    );
+    dispatch(setSearch(debouncedSearch));
+  }, [debouncedSearch, currentPage, limit, dispatch]);
 
-  console.log(search, 'buscador');
   const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(setSearch(e.target.value));
+    setLocalSearch(e.target.value);
     dispatch(setCurrentPage(1));
   };
 
   const clearSearch = () => {
-    dispatch(setCurrentPage(1));
+    setLocalSearch('');
     dispatch(setSearch(''));
+    dispatch(setCurrentPage(1));
   };
 
   const handlePageChange = (page: number) => {
@@ -49,7 +55,7 @@ const Productos = () => {
       <DataTable
         columns={columns}
         data={productos}
-        search={search}
+        search={localSearch}
         handleSearchChange={handleSearchChange}
         handlePageChange={handlePageChange}
         handleLimitChange={handleLimitChange}
