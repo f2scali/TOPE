@@ -5,6 +5,7 @@ import authSlice from '../slices/auth/auth.slice';
 import sidebarSLice from '../slices/sidebar/sidebar.slice';
 import clientesSlice from '../slices/clientes/clientes.slice';
 import inventarioSlice from '../slices/inventario/inventario.slice';
+import lineaSlice from '../slices/linea/linea.slice';
 import storage from 'redux-persist/lib/storage';
 import {
   FLUSH,
@@ -30,6 +31,7 @@ const store = configureStore({
     auth: authSlice,
     clientes: clientesSlice,
     inventario: inventarioSlice,
+    lineas: lineaSlice,
     sidebar: persistedReducer,
   },
   middleware: (getDefaultMiddleware) =>

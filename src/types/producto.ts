@@ -1,8 +1,5 @@
-export interface Linea {
-  id: number;
-  codLinea: string;
-  detalle: string;
-}
+import { Linea } from './linea';
+
 export interface TipoInventario {
   id: number;
   codInventario: string;

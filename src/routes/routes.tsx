@@ -15,6 +15,7 @@ import { Home } from '@/pages/Home';
 export const AppRouter = () => {
   const { rutas } = useSelector((state: RootState) => state.rutas);
   const dispatch = useDispatch<AppDispatch>();
+
   const LazyComponent = (name: string) =>
     lazy(() => import(`../pages/${name}.tsx`));
 
