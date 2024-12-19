@@ -17,8 +17,9 @@ const Productos = () => {
   const [localSearch, setLocalSearch] = useState('');
   const dispatch = useDispatch<AppDispatch>();
   const debouncedSearch = useDebounce(localSearch, 300);
-  const { productos, loading, currentPage, limit, totalPages, total } =
-    useSelector((state: RootState) => state.productos);
+  const { productos, currentPage, limit, totalPages, total } = useSelector(
+    (state: RootState) => state.productos
+  );
 
   useEffect(() => {
     dispatch(

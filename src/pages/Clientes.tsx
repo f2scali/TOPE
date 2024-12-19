@@ -17,8 +17,9 @@ const Clientes = () => {
 
   const dispatch = useDispatch<AppDispatch>();
   const debouncedSearch = useDebounce(localSearch, 300);
-  const { clientes, currentPage, error, limit, loading, total, totalPages } =
-    useSelector((state: RootState) => state.clientes);
+  const { clientes, currentPage, limit, total, totalPages } = useSelector(
+    (state: RootState) => state.clientes
+  );
 
   console.log(totalPages);
   useEffect(() => {
