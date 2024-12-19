@@ -1,6 +1,5 @@
 import { DataTableRowActions } from '@/components/core/dataTable/row-actions';
 import { Inventario } from '@/types/inventario';
-import { Producto } from '@/types/producto';
 import { ColumnDef } from '@tanstack/react-table';
 
 import { FaEdit } from 'react-icons/fa';
