@@ -1,4 +1,5 @@
 import { SheetMenu } from '../sidebar/sheet-menu';
+import { ModeToggle } from './mode-toggle';
 
 interface NavbarProps {
   title: string;
@@ -13,9 +14,9 @@ export function Navbar({ title }: NavbarProps) {
             <h1 className="font-bold">{title}</h1>
           </div>
 
-          {/* <div className="flex flex-1 items-center justify-end">
+          <div className="flex flex-1 items-center justify-end">
             <ModeToggle />
-          </div> */}
+          </div>
         </div>
       </header>
     </div>
