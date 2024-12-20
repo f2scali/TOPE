@@ -10,6 +10,7 @@ import subLineaSlice from '../slices/sublinea/sublinea.slice';
 import detalleLineaSlice from '../slices/detalleLinea/detalleLinea.slice';
 import criteriosSlice from '../slices/criterios/criterios.slice';
 import unidadMedSlice from '../slices/unidadMed/unidadMed.slice';
+import detalleListaSlice from '../slices/detalleLista/detalleLista.slice';
 import storage from 'redux-persist/lib/storage';
 import {
   FLUSH,
@@ -40,6 +41,7 @@ const store = configureStore({
     detalleLineas: detalleLineaSlice,
     criterios: criteriosSlice,
     unidadMed: unidadMedSlice,
+    detalleLista: detalleListaSlice,
     sidebar: persistedReducer,
   },
   middleware: (getDefaultMiddleware) =>
