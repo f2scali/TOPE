@@ -1,15 +1,11 @@
 import { Criterio } from './criterio';
 import { Linea } from './linea';
+import { UnidadMedida } from './unidadMed';
 
 export interface TipoInventario {
   id: number;
   codInventario: string;
   detalle: string;
-}
-export interface UnidadMedida {
-  id: number;
-  codUnidadMed: string;
-  Detalle: string;
 }
 
 export interface Producto {

@@ -1,13 +1,13 @@
 import { DataTableRowActions } from '@/components/core/dataTable/row-actions';
-import { Criterio } from '@/types/criterio';
+import { UnidadMedida } from '@/types/unidadMed';
 import { ColumnDef } from '@tanstack/react-table';
 
 import { FaEdit } from 'react-icons/fa';
 import { FaDeleteLeft } from 'react-icons/fa6';
-export const columns: ColumnDef<Criterio>[] = [
+export const columns: ColumnDef<UnidadMedida>[] = [
   {
-    accessorKey: 'codCriterio',
-    header: 'COD Criterio',
+    accessorKey: 'codUnidadMed',
+    header: 'COD Medida',
     cell: ({ cell }) => <div className="text-left">{`${cell.getValue()}`}</div>,
   },
 
