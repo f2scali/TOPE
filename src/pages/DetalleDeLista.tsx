@@ -48,8 +48,8 @@ const DetalleListaPrecio = () => {
     dispatch(setLimit(limit));
   };
   return (
-    <ContentLayout title="Detalle de lineas">
-      <h1 className="text-3xl text-left mb-4 font-bold">Detalle de lineas</h1>
+    <ContentLayout title="Detalle de listas">
+      <h1 className="text-3xl text-left mb-4 font-bold">Detalle de listas</h1>
       <DataTable
         columns={columns}
         data={detalleListas}

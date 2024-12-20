@@ -17,6 +17,11 @@ export const columns: ColumnDef<Usuario>[] = [
     cell: ({ cell }) => <div className="text-left">{`${cell.getValue()}`}</div>,
   },
   {
+    accessorFn: (row) => row.rol?.descripcion.toUpperCase(),
+    header: 'Rol',
+    cell: ({ cell }) => <div className="text-left">{`${cell.getValue()}`}</div>,
+  },
+  {
     id: 'actions',
     cell: ({ row }) => {
       return (

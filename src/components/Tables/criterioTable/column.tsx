@@ -17,6 +17,11 @@ export const columns: ColumnDef<Criterio>[] = [
     cell: ({ cell }) => <div className="text-left">{`${cell.getValue()}`}</div>,
   },
   {
+    accessorFn: (row) => row.tipoInventario?.detalle,
+    header: 'Inventario',
+    cell: ({ cell }) => <div className="text-left">{`${cell.getValue()}`}</div>,
+  },
+  {
     id: 'actions',
     cell: ({ row }) => {
       return (

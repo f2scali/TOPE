@@ -10,20 +10,6 @@ export const columns: ColumnDef<Cliente>[] = [
     header: 'NIT',
     cell: ({ cell }) => <div className="text-left">{`${cell.getValue()}`}</div>,
   },
-  //   {
-  //     accessorFn: (row) => row.tipoInventario?.detalle,
-  //     header: 'Inventario',
-  //     cell: ({ cell }) => (
-  //       <div className="text-left">{`${cell.getValue()}` || 'Sin Tipo Inv'}</div>
-  //     ),
-  //   },
-  //   {
-  //     accessorFn: (row) => row.linea?.detalle,
-  //     header: 'Línea',
-  //     cell: ({ cell }) => (
-  //       <div className="text-left">{`${cell.getValue()}` || 'Sin Linea'}</div>
-  //     ),
-  //   },
   {
     accessorKey: 'Descripcion',
     header: 'Descripción',
@@ -31,22 +17,28 @@ export const columns: ColumnDef<Cliente>[] = [
       <div className="text-left">{row.getValue('Descripcion')}</div>
     ),
   },
-  //   {
-  //     accessorFn: (row) => row.unidadMed?.Detalle,
-  //     header: 'Unidad Medida',
-  //     cell: ({ cell }) => (
-  //       <div className="text-left">
-  //         {`${cell.getValue()}` || 'Sin Unidad Med'}
-  //       </div>
-  //     ),
-  //   },
-  //   {
-  //     accessorFn: (row) => row.criterio?.Detalle,
-  //     header: 'Cricla',
-  //     cell: ({ cell }) => (
-  //       <div className="text-left">{`${cell.getValue()}` || 'Sin criterio'}</div>
-  //     ),
-  //   },
+  {
+    accessorFn: (row) => row.tipoCliente?.Detalle,
+    header: 'Tipo de cliente',
+    cell: ({ cell }) => (
+      <div className="text-left">{`${cell.getValue()}` || 'Sin Tipo Inv'}</div>
+    ),
+  },
+  {
+    accessorFn: (row) => row.listaPrecios?.DETALLE,
+    header: 'Lista de Precio',
+    cell: ({ cell }) => (
+      <div className="text-left">{`${cell.getValue()}` || 'Sin Linea'}</div>
+    ),
+  },
+  {
+    accessorFn: (row) =>
+      `${row.vendedor?.NOMBRE || ''} ${row.vendedor?.APELLIDO || ''}`.trim(),
+    header: 'Vendedor',
+    cell: ({ cell }) => (
+      <div className="text-left">{`${cell.getValue()}` || 'Sin Vendedor'}</div>
+    ),
+  },
   {
     id: 'actions',
     cell: ({ row }) => {
