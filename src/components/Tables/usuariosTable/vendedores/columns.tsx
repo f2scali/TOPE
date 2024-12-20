@@ -28,6 +28,11 @@ export const columns: ColumnDef<Vendedor>[] = [
     cell: ({ cell }) => <div className="text-left">{`${cell.getValue()}`}</div>,
   },
   {
+    accessorFn: (row) => row.usuario?.usuario,
+    header: 'Usuario',
+    cell: ({ cell }) => <div className="text-left">{`${cell.getValue()}`}</div>,
+  },
+  {
     id: 'actions',
     cell: ({ row }) => {
       return (
