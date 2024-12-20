@@ -11,6 +11,7 @@ import detalleLineaSlice from '../slices/detalleLinea/detalleLinea.slice';
 import criteriosSlice from '../slices/criterios/criterios.slice';
 import unidadMedSlice from '../slices/unidadMed/unidadMed.slice';
 import detalleListaSlice from '../slices/detalleLista/detalleLista.slice';
+import tipoClienteSlice from '../slices/tipoCliente/tipoCliente.slice';
 import storage from 'redux-persist/lib/storage';
 import {
   FLUSH,
@@ -42,6 +43,7 @@ const store = configureStore({
     criterios: criteriosSlice,
     unidadMed: unidadMedSlice,
     detalleLista: detalleListaSlice,
+    tipoCliente: tipoClienteSlice,
     sidebar: persistedReducer,
   },
   middleware: (getDefaultMiddleware) =>
