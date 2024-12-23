@@ -1,4 +1,5 @@
 import { DataTable } from '@/components/core/dataTable/data-table';
+import ClientesForm from '@/components/Forms/clientes/form';
 import { columns } from '@/components/Tables/clientesTable/columns';
 import { useDebounce } from '@/hooks/useDebounce';
 import { ContentLayout } from '@/layout/Content-layout';
@@ -51,6 +52,7 @@ const Clientes = () => {
   return (
     <ContentLayout title="Clientes">
       <h1 className="text-3xl text-left mb-4 font-bold">Clientes</h1>
+      <ClientesForm />
       <DataTable
         columns={columns}
         data={clientes}
