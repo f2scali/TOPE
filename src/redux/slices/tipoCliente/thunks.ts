@@ -27,4 +27,19 @@ export const thunks = {
       }
     }
   ),
+
+  fetchAllTipoCliente: createAsyncThunk(
+    'tipoCliente/fetchAllTipoCliente',
+    async (_, { rejectWithValue }) => {
+      try {
+        const response = await api.get('tipoCliente/all');
+
+        return {
+          tiposCliente: response.data,
+        };
+      } catch (error: any) {
+        return rejectWithValue(error.message || 'Error desconocido');
+      }
+    }
+  ),
 };

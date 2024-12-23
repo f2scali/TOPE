@@ -22,7 +22,25 @@ const extraReducers = (builder: any) => {
         state.loading = false;
         state.error = action.payload as string;
       }
-    );
+    ),
+    builder
+      .addCase(thunks.fetchAllVendedores.pending, (state: VendedoresState) => {
+        state.loading = true;
+      })
+      .addCase(
+        thunks.fetchAllVendedores.fulfilled,
+        (state: VendedoresState, action: PayloadAction<VendedoresState>) => {
+          state.loading = false;
+          state.vendedores = action.payload.vendedores;
+        }
+      )
+      .addCase(
+        thunks.fetchAllVendedores.rejected,
+        (state: VendedoresState, action: PayloadAction<string>) => {
+          state.loading = false;
+          state.error = action.payload as string;
+        }
+      );
 };
 
 export default extraReducers;

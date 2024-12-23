@@ -14,6 +14,7 @@ import detalleListaSlice from '../slices/detalleLista/detalleLista.slice';
 import tipoClienteSlice from '../slices/tipoCliente/tipoCliente.slice';
 import usuarioSlice from '../slices/usuario/usuario.slice';
 import vendedorSlice from '../slices/vendedor/vendedor.slice';
+import listaPreciosSlice from '../slices/listaPrecios/listaPrecios.slice';
 import storage from 'redux-persist/lib/storage';
 import {
   FLUSH,
@@ -48,6 +49,7 @@ const store = configureStore({
     tipoCliente: tipoClienteSlice,
     usuarios: usuarioSlice,
     vendedores: vendedorSlice,
+    listaPrecios: listaPreciosSlice,
     sidebar: persistedReducer,
   },
   middleware: (getDefaultMiddleware) =>

@@ -2,8 +2,8 @@ import api from '@/services/axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const thunks = {
-  fetchVendedores: createAsyncThunk(
-    'vendedor/fetchVendedores',
+  fetchListaPrecios: createAsyncThunk(
+    'listaPrecios/fetchListaPrecios',
     async (
       {
         currentPage,
@@ -14,11 +14,11 @@ export const thunks = {
     ) => {
       try {
         const response = await api.get(
-          `vendedor?page=${currentPage}&search=${search}&limit=${limit}`
+          `listaPrecios?page=${currentPage}&search=${search}&limit=${limit}`
         );
 
         return {
-          vendedores: response.data.data,
+          listaPrecios: response.data.data,
           total: response.data.total,
           totalPages: response.data.totalPages,
         };
@@ -27,14 +27,15 @@ export const thunks = {
       }
     }
   ),
-  fetchAllVendedores: createAsyncThunk(
-    'vendedor/fetchAllVendedores',
+
+  fetchAllListaPrecio: createAsyncThunk(
+    'listaPrecios/fetchAllListaPrecio',
     async (_, { rejectWithValue }) => {
       try {
-        const response = await api.get('vendedor/all');
+        const response = await api.get('listaPrecios/all');
 
         return {
-          vendedores: response.data,
+          listaPrecios: response.data,
         };
       } catch (error: any) {
         return rejectWithValue(error.message || 'Error desconocido');
