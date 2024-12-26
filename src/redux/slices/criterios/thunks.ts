@@ -16,7 +16,6 @@ export const thunks = {
         const response = await api.get(
           `criterio?page=${currentPage}&search=${search}&limit=${limit}`
         );
-        console.log('se ejecuto');
         return {
           criterios: response.data.data,
           total: response.data.total,

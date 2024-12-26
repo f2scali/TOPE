@@ -1,4 +1,5 @@
 import api from '@/services/axios';
+import { Cliente, PostCliente } from '@/types/clientes';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const thunks = {
@@ -14,7 +15,7 @@ export const thunks = {
     ) => {
       try {
         const response = await api.get(
-          `clientes?page=${currentPage}&search=${search}&limit=${limit}`
+          `clientes?page=${currentPage}&search=${search}&limit=${limit}&orderDirection=DESC`
         );
         console.log('se ejecuto');
         return {
@@ -24,6 +25,21 @@ export const thunks = {
         };
       } catch (error: any) {
         return rejectWithValue(error.message || 'Error desconocido');
+      }
+    }
+  ),
+
+  createCliente: createAsyncThunk(
+    'clientes/createCliente',
+    async (cliente: Partial<Cliente>, { rejectWithValue }) => {
+      try {
+        const response = await api.post('clientes', cliente);
+        return response.data;
+      } catch (error: any) {
+        console.log(error);
+        return rejectWithValue(
+          error.response.data.message[0] || 'Error desconocido'
+        );
       }
     }
   ),

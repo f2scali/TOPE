@@ -16,7 +16,6 @@ export const thunks = {
         const response = await api.get(
           `tipoInventario?page=${currentPage}&search=${search}&limit=${limit}`
         );
-        console.log('se ejecuto');
         return {
           inventario: response.data.data,
           total: response.data.total,

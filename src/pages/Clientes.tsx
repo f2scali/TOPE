@@ -22,7 +22,6 @@ const Clientes = () => {
     (state: RootState) => state.clientes
   );
 
-  console.log(totalPages);
   useEffect(() => {
     dispatch(
       thunks.fetchClientes({ currentPage, search: debouncedSearch, limit })

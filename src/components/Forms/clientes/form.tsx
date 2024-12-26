@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { thunks } from '@/redux/slices/tipoCliente/thunks';
 import { thunks as VDThunks } from '@/redux/slices/vendedor/thunks';
 import { thunks as LPThunks } from '@/redux/slices/listaPrecios/thunks';
+import { thunks as CLThunks } from '@/redux/slices/clientes/thunks';
 
 import { AppDispatch, RootState } from '@/redux/store/store';
 import { FieldType } from '@/types/form-generator.types';
@@ -12,6 +13,7 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { z } from 'zod';
+import { ButtonLoading } from '@/components/ui/button-loading';
 
 const ClientesForm = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -20,6 +22,9 @@ const ClientesForm = () => {
     (state: RootState) => state.listaPrecios
   );
   const { vendedores } = useSelector((state: RootState) => state.vendedores);
+  const { error, loadingPayload } = useSelector(
+    (state: RootState) => state.clientes
+  );
   useEffect(() => {
     dispatch(thunks.fetchAllTipoCliente());
     dispatch(LPThunks.fetchAllListaPrecio());
@@ -28,7 +33,7 @@ const ClientesForm = () => {
 
   const formFields = [
     {
-      name: 'nit',
+      name: 'NIT',
       label: 'NIT',
       type: FieldType.Text,
       default: '',
@@ -108,9 +113,23 @@ const ClientesForm = () => {
     defaultValues: defaultValues,
   });
 
-  const onSubmit = (data: FormSchemaType) => {
+  useEffect(() => {
+    if (error) {
+      form.setError('root', { message: error });
+    } else {
+      form.clearErrors('root');
+    }
+  }, [error, form]);
+
+  const onSubmit = async (data: Partial<FormSchemaType>) => {
     console.log(data);
-    form.reset();
+    const result = await dispatch(CLThunks.createCliente(data));
+    if (result.meta.requestStatus === 'fulfilled') {
+      await dispatch(
+        CLThunks.fetchClientes({ currentPage: 1, search: '', limit: 10 })
+      );
+      form.reset();
+    }
   };
   return (
     <form
@@ -120,10 +139,18 @@ const ClientesForm = () => {
       <div className="grid gap-x-3 md:grid-cols-3 text-center md:text-left  lg:grid-cols-5">
         {formGenerator.fields(form)}
       </div>
-
-      <Button className="w-full md:w-[200px] mt-4" type="submit">
-        Crear cliente
-      </Button>
+      {form.formState.errors.root && (
+        <div className="text-red-500 text-sm mt-2">
+          {form.formState.errors.root.message}
+        </div>
+      )}
+      {loadingPayload ? (
+        <ButtonLoading className="w-full md:w-[200px] mt-4" />
+      ) : (
+        <Button className="w-full md:w-[200px] mt-4" type="submit">
+          Crear cliente
+        </Button>
+      )}
     </form>
   );
 };

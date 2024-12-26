@@ -3,6 +3,7 @@ import { Cliente } from '@/types/clientes';
 export interface ClienteState {
   clientes: Cliente[];
   loading: boolean;
+  loadingPayload?: boolean;
   error: null | string;
   total: number;
   totalPages: number;
@@ -13,6 +14,7 @@ export interface ClienteState {
 const initialState: ClienteState = {
   clientes: [],
   loading: false,
+  loadingPayload: false,
   error: null,
   total: 0,
   totalPages: 0,
