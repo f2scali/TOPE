@@ -1,5 +1,5 @@
 import api from '@/services/axios';
-import { Cliente, PostCliente } from '@/types/clientes';
+import { Cliente } from '@/types/clientes';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const thunks = {

@@ -1,7 +1,5 @@
 import ClientesForm from '@/components/Forms/clientes/form';
 import { ContentLayout } from '@/layout/Content-layout';
-import { Cliente } from '@/types/clientes';
-import { FC } from 'react';
 import { useLocation } from 'react-router-dom';
 const EditarCliente = () => {
   const location = useLocation();
