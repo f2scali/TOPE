@@ -1,3 +1,4 @@
+import { BreadCrumbComponent } from '@/components/core/breadcrumb';
 import { DataTable } from '@/components/core/dataTable/data-table';
 import { columns } from '@/components/Tables/productosTable/columns';
 import { useDebounce } from '@/hooks/useDebounce';
@@ -12,8 +13,11 @@ import { AppDispatch, RootState } from '@/redux/store/store';
 
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 
 const Productos = () => {
+  const location = useLocation();
+  const pathName = location.pathname;
   const [localSearch, setLocalSearch] = useState('');
   const dispatch = useDispatch<AppDispatch>();
   const debouncedSearch = useDebounce(localSearch, 300);
@@ -50,6 +54,7 @@ const Productos = () => {
 
   return (
     <ContentLayout title="Productos">
+      <BreadCrumbComponent path={pathName} />
       <h1 className="text-3xl text-left mb-4 font-bold">Productos</h1>
 
       <DataTable

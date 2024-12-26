@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 const EditarCliente = () => {
   const location = useLocation();
   const clienteData = location.state;
-  console.log(clienteData);
+
   return (
     <ContentLayout title="Editar Cliente">
       <h1 className="text-2xl text-left mb-10">
