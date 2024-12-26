@@ -9,13 +9,24 @@ import { thunks as CLThunks } from '@/redux/slices/clientes/thunks';
 import { AppDispatch, RootState } from '@/redux/store/store';
 import { FieldType } from '@/types/form-generator.types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { z } from 'zod';
 import { ButtonLoading } from '@/components/ui/button-loading';
+import { useLocation } from 'react-router-dom';
 
-const ClientesForm = () => {
+interface ClientesFormProps {
+  isEdit?: boolean;
+  initialValues?: any;
+}
+const ClientesForm: FC<ClientesFormProps> = ({
+  isEdit,
+  initialValues = {},
+}) => {
+  const location = useLocation();
+
+  const stateId = location.state?.id;
   const dispatch = useDispatch<AppDispatch>();
   const { tiposCliente } = useSelector((state: RootState) => state.tipoCliente);
   const { listaPrecios } = useSelector(
@@ -54,7 +65,6 @@ const ClientesForm = () => {
       name: 'id_Tipo_Cliente',
       label: 'Tipo de Cliente',
       type: FieldType.Select,
-      default: undefined,
       required: true,
       schema: z.preprocess(
         (value) => (value ? Number(value) : undefined),
@@ -106,7 +116,7 @@ const ClientesForm = () => {
 
   type FormSchemaType = z.infer<typeof schema>;
 
-  const defaultValues = formGenerator.defaultValues;
+  const defaultValues = { ...formGenerator.defaultValues, ...initialValues };
 
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(schema),
@@ -123,11 +133,17 @@ const ClientesForm = () => {
 
   const onSubmit = async (data: Partial<FormSchemaType>) => {
     console.log(data);
-    const result = await dispatch(CLThunks.createCliente(data));
+    const action = isEdit
+      ? CLThunks.editCliente({ id: stateId, data })
+      : CLThunks.createCliente(data);
+
+    const result = await dispatch(action as any);
     if (result.meta.requestStatus === 'fulfilled') {
-      dispatch(
-        CLThunks.fetchClientes({ currentPage: 1, search: '', limit: 10 })
-      );
+      if (!isEdit) {
+        dispatch(
+          CLThunks.fetchClientes({ currentPage: 1, search: '', limit: 10 })
+        );
+      }
       form.reset();
     }
   };
@@ -148,7 +164,7 @@ const ClientesForm = () => {
         <ButtonLoading className="w-full md:w-[200px] mt-4" />
       ) : (
         <Button className="w-full md:w-[200px] mt-4" type="submit">
-          Crear cliente
+          {isEdit ? 'Guardar cambios' : 'Crear cliente'}
         </Button>
       )}
     </form>

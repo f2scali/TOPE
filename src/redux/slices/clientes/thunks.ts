@@ -43,4 +43,20 @@ export const thunks = {
       }
     }
   ),
+  editCliente: createAsyncThunk(
+    'clientes/editCliente',
+    async (
+      { id, data }: { id: number; data: Partial<Cliente> },
+      { rejectWithValue }
+    ) => {
+      try {
+        const response = await api.put(`clientes/update-by-id/${id}`, data);
+        return response.data;
+      } catch (error: any) {
+        return rejectWithValue(
+          error.response.data.message[0] || 'Error desconocido'
+        );
+      }
+    }
+  ),
 };

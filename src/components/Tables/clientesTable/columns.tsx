@@ -1,9 +1,11 @@
 import { DataTableRowActions } from '@/components/core/dataTable/row-actions';
+import EditarCliente from '@/pages/EditarCliente';
 import { Cliente } from '@/types/clientes';
 import { ColumnDef } from '@tanstack/react-table';
 
 import { FaEdit } from 'react-icons/fa';
 import { FaDeleteLeft } from 'react-icons/fa6';
+import { useNavigate } from 'react-router-dom';
 export const columns: ColumnDef<Cliente>[] = [
   {
     accessorKey: 'NIT',
@@ -42,6 +44,7 @@ export const columns: ColumnDef<Cliente>[] = [
   {
     id: 'actions',
     cell: ({ row }) => {
+      const navigate = useNavigate();
       return (
         <DataTableRowActions
           row={row}
@@ -50,8 +53,12 @@ export const columns: ColumnDef<Cliente>[] = [
               label: 'Editar',
               icon: FaEdit,
               color: 'text-blue-500',
-              onClick: (rowData) => {
-                console.log('Edit', rowData);
+              onClick: () => {
+                const clienteId = row.original.id;
+                console.log(clienteId);
+                navigate(`/clientes/editar/${clienteId}`, {
+                  state: row.original,
+                });
               },
             },
 
