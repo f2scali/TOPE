@@ -36,6 +36,7 @@ export type NumberFieldType = GenericFieldType & {
 export type SelectFieldType = GenericFieldType & {
   type: FieldType.Select;
   default?: string | number;
+  error?: any;
   options:
     | readonly string[]
     | readonly { value: string | number; label: string }[];

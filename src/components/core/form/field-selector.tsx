@@ -70,6 +70,10 @@ function FieldSelector<T extends FieldDataType>({
             value={(field.value as string) ?? ''}
             required={fieldData.required}
             data-testid={fieldData.testId}
+            aria-invalid={!!fieldData.error} // Marca el campo como inválido si hay error
+            aria-describedby={
+              fieldData.error ? `${fieldData.name}-error` : undefined
+            }
           >
             <SelectTrigger id={fieldData.name}>
               <SelectValue />

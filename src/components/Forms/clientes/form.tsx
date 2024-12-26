@@ -125,7 +125,7 @@ const ClientesForm = () => {
     console.log(data);
     const result = await dispatch(CLThunks.createCliente(data));
     if (result.meta.requestStatus === 'fulfilled') {
-      await dispatch(
+      dispatch(
         CLThunks.fetchClientes({ currentPage: 1, search: '', limit: 10 })
       );
       form.reset();
