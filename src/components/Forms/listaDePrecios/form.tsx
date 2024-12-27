@@ -1,4 +1,5 @@
 import FormGenerator, { FormProps } from '@/components/core/form/generator';
+import { emptyToUndefined } from '@/components/core/form/utils';
 import { Button } from '@/components/ui/button';
 import { ButtonLoading } from '@/components/ui/button-loading';
 import {
@@ -38,7 +39,7 @@ const ListaDePreciosForm: FC<ListaDePreciosFormProps> = ({
       type: FieldType.Text,
       default: '',
       required: false,
-      schema: z.string(),
+      schema: z.preprocess(emptyToUndefined, z.string()),
     },
     {
       name: 'DETALLE',
@@ -46,7 +47,7 @@ const ListaDePreciosForm: FC<ListaDePreciosFormProps> = ({
       type: FieldType.Text,
       default: '',
       required: true,
-      schema: z.string(),
+      schema: z.preprocess(emptyToUndefined, z.string()),
     },
   ] as const;
   const formGenerator = new FormGenerator<typeof formFields>(formFields);

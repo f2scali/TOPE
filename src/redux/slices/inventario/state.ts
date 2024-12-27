@@ -3,6 +3,7 @@ import { Inventario } from '@/types/inventario';
 export interface InventarioState {
   inventario: Inventario[];
   loading: boolean;
+  loadingPayload: boolean;
   error: null | string;
   total: number;
   totalPages: number;
@@ -13,6 +14,7 @@ export interface InventarioState {
 const initialState: InventarioState = {
   inventario: [],
   loading: false,
+  loadingPayload: false,
   error: null,
   total: 0,
   totalPages: 0,

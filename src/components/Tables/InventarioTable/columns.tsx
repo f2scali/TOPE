@@ -4,6 +4,7 @@ import { ColumnDef } from '@tanstack/react-table';
 
 import { FaEdit } from 'react-icons/fa';
 import { FaDeleteLeft } from 'react-icons/fa6';
+import { useNavigate } from 'react-router-dom';
 export const columns: ColumnDef<Inventario>[] = [
   {
     accessorKey: 'codInventario',
@@ -12,13 +13,14 @@ export const columns: ColumnDef<Inventario>[] = [
   },
 
   {
-    accessorKey: 'detalle',
+    accessorKey: 'Detalle',
     header: 'Detalle',
     cell: ({ cell }) => <div className="text-left">{`${cell.getValue()}`}</div>,
   },
   {
     id: 'actions',
     cell: ({ row }) => {
+      const navigate = useNavigate();
       return (
         <DataTableRowActions
           row={row}
@@ -27,8 +29,11 @@ export const columns: ColumnDef<Inventario>[] = [
               label: 'Editar',
               icon: FaEdit,
               color: 'text-blue-500',
-              onClick: (rowData) => {
-                console.log('Edit', rowData);
+              onClick: () => {
+                const inventarioData = row.original;
+                navigate(`/inventario/editar/${inventarioData.id}`, {
+                  state: inventarioData,
+                });
               },
             },
 

@@ -46,6 +46,48 @@ const extraReducers = (builder: any) => {
           state.loading = false;
           state.error = action.payload as string;
         }
+      ),
+    builder
+      .addCase(
+        thunks.createListaPrecios.pending,
+        (state: Partial<ListaPreciosState>) => {
+          state.loadingPayload = true;
+        }
+      )
+      .addCase(
+        thunks.createListaPrecios.fulfilled,
+        (state: Partial<ListaPreciosState>) => {
+          state.loadingPayload = false;
+          state.error = null;
+        }
+      )
+      .addCase(
+        thunks.createListaPrecios.rejected,
+        (state: Partial<ListaPreciosState>, action: PayloadAction<any>) => {
+          state.loadingPayload = false;
+          state.error = action.payload as string;
+        }
+      ),
+    builder
+      .addCase(
+        thunks.updateListaPrecios.pending,
+        (state: Partial<ListaPreciosState>) => {
+          state.loadingPayload = true;
+        }
+      )
+      .addCase(
+        thunks.updateListaPrecios.fulfilled,
+        (state: Partial<ListaPreciosState>) => {
+          state.loadingPayload = false;
+          state.error = null;
+        }
+      )
+      .addCase(
+        thunks.updateListaPrecios.rejected,
+        (state: Partial<ListaPreciosState>, action: PayloadAction<any>) => {
+          state.loadingPayload = false;
+          state.error = action.payload as string;
+        }
       );
 };
 

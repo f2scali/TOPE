@@ -35,7 +35,6 @@ export const columns: ColumnDef<ListaPrecio>[] = [
                 navigate(`/lista-precios/editar/${listaPrecioData.id}`, {
                   state: listaPrecioData,
                 });
-                console.log('Edit');
               },
             },
 

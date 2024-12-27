@@ -1,4 +1,5 @@
 import { DataTable } from '@/components/core/dataTable/data-table';
+import TipoInventarioForm from '@/components/Forms/tipoInventario/form';
 import { columns } from '@/components/Tables/InventarioTable/columns';
 import { useDebounce } from '@/hooks/useDebounce';
 import { ContentLayout } from '@/layout/Content-layout';
@@ -50,7 +51,7 @@ const Inventario = () => {
   return (
     <ContentLayout title="Inventario">
       <h1 className="text-3xl text-left mb-4 font-bold">Inventario</h1>
-
+      <TipoInventarioForm setLocalSearch={setLocalSearch} />
       <DataTable
         columns={columns}
         data={inventario}

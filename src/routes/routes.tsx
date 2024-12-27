@@ -14,6 +14,7 @@ import { thunks as rutasThunks } from '@/redux/slices/rutas/thunks';
 import { Home } from '@/pages/Home';
 import EditarTipoCliente from '@/pages/EditarTipoCliente';
 import EditarListaPrecio from '@/pages/EditarListaPrecio';
+import EditarInventario from '@/pages/EditarInventario';
 export const AppRouter = () => {
   const { rutas } = useSelector((state: RootState) => state.rutas);
   const dispatch = useDispatch<AppDispatch>();
@@ -52,6 +53,8 @@ export const AppRouter = () => {
           path="lista-precios/editar/:id"
           element={<EditarListaPrecio />}
         />
+        <Route path="inventario/editar/:id" element={<EditarInventario />} />
+        <Route path="*" element={<div>404</div>} />
       </Routes>
     </Suspense>
   );
