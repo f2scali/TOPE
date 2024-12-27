@@ -17,7 +17,6 @@ export const thunks = {
         const response = await api.get(
           `clientes?page=${currentPage}&search=${search}&limit=${limit}&orderDirection=DESC`
         );
-        console.log('se ejecuto');
         return {
           clientes: response.data.data,
           total: response.data.total,

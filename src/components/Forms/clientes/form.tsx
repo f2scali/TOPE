@@ -1,4 +1,4 @@
-import FormGenerator from '@/components/core/form/generator';
+import FormGenerator, { FormProps } from '@/components/core/form/generator';
 import { emptyToUndefined } from '@/components/core/form/utils';
 import { Button } from '@/components/ui/button';
 import { thunks } from '@/redux/slices/tipoCliente/thunks';
@@ -16,14 +16,7 @@ import { z } from 'zod';
 import { ButtonLoading } from '@/components/ui/button-loading';
 import { useLocation } from 'react-router-dom';
 
-interface ClientesFormProps {
-  isEdit?: boolean;
-  initialValues?: any;
-}
-const ClientesForm: FC<ClientesFormProps> = ({
-  isEdit,
-  initialValues = {},
-}) => {
+const ClientesForm: FC<FormProps> = ({ isEdit, initialValues = {} }) => {
   const location = useLocation();
 
   const stateId = location.state?.id;
@@ -33,9 +26,7 @@ const ClientesForm: FC<ClientesFormProps> = ({
     (state: RootState) => state.listaPrecios
   );
   const { vendedores } = useSelector((state: RootState) => state.vendedores);
-  const { error, loadingPayload } = useSelector(
-    (state: RootState) => state.clientes
-  );
+  const { loadingPayload } = useSelector((state: RootState) => state.clientes);
   useEffect(() => {
     dispatch(thunks.fetchAllTipoCliente());
     dispatch(LPThunks.fetchAllListaPrecio());
@@ -123,28 +114,24 @@ const ClientesForm: FC<ClientesFormProps> = ({
     defaultValues: defaultValues,
   });
 
-  useEffect(() => {
-    if (error) {
-      form.setError('root', { message: error });
-    } else {
-      form.clearErrors('root');
-    }
-  }, [error, form]);
-
-  const onSubmit = async (data: Partial<FormSchemaType>) => {
-    console.log(data);
+  const onSubmit = async (data: FormSchemaType) => {
     const action = isEdit
       ? CLThunks.editCliente({ id: stateId, data })
       : CLThunks.createCliente(data);
 
     const result = await dispatch(action as any);
+
+    if (result.meta.requestStatus === 'rejected') {
+      const reduxError = result.payload || 'Ocurrió un error inesperado';
+      form.setError('root', { message: reduxError });
+    }
     if (result.meta.requestStatus === 'fulfilled') {
       if (!isEdit) {
         dispatch(
           CLThunks.fetchClientes({ currentPage: 1, search: '', limit: 10 })
         );
+        form.reset();
       }
-      form.reset();
     }
   };
   return (

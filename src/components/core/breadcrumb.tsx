@@ -11,7 +11,6 @@ import { Fragment } from 'react';
 
 export function BreadCrumbComponent({ path }: any) {
   const breadcrumbs = useBreadCrumbs(path);
-  console.log(breadcrumbs);
   return (
     <Breadcrumb className="mb-6">
       <BreadcrumbList>
@@ -19,7 +18,7 @@ export function BreadCrumbComponent({ path }: any) {
           <BreadcrumbLink href="/">Inicio</BreadcrumbLink>
         </BreadcrumbItem>
 
-        {breadcrumbs.map(({ href, label }, index) => (
+        {breadcrumbs.map(({ label }, index) => (
           <Fragment key={index}>
             <BreadcrumbSeparator />
 

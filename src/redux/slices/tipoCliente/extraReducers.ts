@@ -43,6 +43,27 @@ const extraReducers = (builder: any) => {
           state.loading = false;
           state.error = action.payload as string;
         }
+      ),
+    builder
+      .addCase(
+        thunks.createTipoCliente.pending,
+        (state: Partial<TipoClienteState>) => {
+          state.loadingPayload = true;
+        }
+      )
+      .addCase(
+        thunks.createTipoCliente.fulfilled,
+        (state: Partial<TipoClienteState>) => {
+          state.loadingPayload = false;
+          state.error = null;
+        }
+      )
+      .addCase(
+        thunks.createTipoCliente.rejected,
+        (state: Partial<TipoClienteState>, action: PayloadAction<any>) => {
+          state.loadingPayload = false;
+          state.error = action.payload as string;
+        }
       );
 };
 

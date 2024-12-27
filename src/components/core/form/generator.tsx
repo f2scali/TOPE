@@ -4,6 +4,11 @@ import type { Path, UseFormReturn } from 'react-hook-form';
 import { Form, FormField } from '@/components/ui/form';
 import FieldSelector from './field-selector';
 
+export interface FormProps {
+  isEdit?: boolean;
+  initialValues?: any;
+}
+
 type FormSchema<T extends readonly FieldDataType[]> = {
   [K in T[number]['name']]: z.infer<Extract<T[number], { name: K }>['schema']>;
 };

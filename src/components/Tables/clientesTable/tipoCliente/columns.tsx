@@ -4,6 +4,7 @@ import { ColumnDef } from '@tanstack/react-table';
 
 import { FaEdit } from 'react-icons/fa';
 import { FaDeleteLeft } from 'react-icons/fa6';
+import { useNavigate } from 'react-router-dom';
 export const columns: ColumnDef<TipoCliente>[] = [
   {
     accessorKey: 'codTipoCliente',
@@ -19,6 +20,7 @@ export const columns: ColumnDef<TipoCliente>[] = [
   {
     id: 'actions',
     cell: ({ row }) => {
+      const navigate = useNavigate();
       return (
         <DataTableRowActions
           row={row}
@@ -27,8 +29,11 @@ export const columns: ColumnDef<TipoCliente>[] = [
               label: 'Editar',
               icon: FaEdit,
               color: 'text-blue-500',
-              onClick: (rowData) => {
-                console.log('Edit', rowData);
+              onClick: () => {
+                const tipoCliente = row.original;
+                navigate(`/clientes/editarTipo/${tipoCliente.id}`, {
+                  state: tipoCliente,
+                });
               },
             },
 

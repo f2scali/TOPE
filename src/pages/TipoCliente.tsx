@@ -11,8 +11,13 @@ import { thunks } from '@/redux/slices/tipoCliente/thunks';
 import { AppDispatch, RootState } from '@/redux/store/store';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import TipoClientesForm from '@/components/Forms/tipoClientes/form';
+import { BreadCrumbComponent } from '@/components/core/breadcrumb';
+import { useLocation } from 'react-router-dom';
 
 const TipoCliente = () => {
+  const location = useLocation();
+  const pathname = location.pathname;
   const [localSearch, setLocalSearch] = useState('');
 
   const dispatch = useDispatch<AppDispatch>();
@@ -49,7 +54,9 @@ const TipoCliente = () => {
   };
   return (
     <ContentLayout title="Tipo Cliente">
+      <BreadCrumbComponent path={pathname} />
       <h1 className="text-3xl text-left mb-4 font-bold">Tipos de Clientes</h1>
+      <TipoClientesForm />
       <DataTable
         columns={columns}
         data={tiposCliente}
