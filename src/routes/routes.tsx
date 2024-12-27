@@ -13,6 +13,7 @@ import { Route, Routes } from 'react-router-dom';
 import { thunks as rutasThunks } from '@/redux/slices/rutas/thunks';
 import { Home } from '@/pages/Home';
 import EditarTipoCliente from '@/pages/EditarTipoCliente';
+import EditarListaPrecio from '@/pages/EditarListaPrecio';
 export const AppRouter = () => {
   const { rutas } = useSelector((state: RootState) => state.rutas);
   const dispatch = useDispatch<AppDispatch>();
@@ -47,6 +48,10 @@ export const AppRouter = () => {
         })}
         <Route path="/" element={<Home />} />
         <Route path="clientes/editarTipo/:id" element={<EditarTipoCliente />} />
+        <Route
+          path="lista-precios/editar/:id"
+          element={<EditarListaPrecio />}
+        />
       </Routes>
     </Suspense>
   );

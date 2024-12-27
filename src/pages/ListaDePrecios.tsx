@@ -1,4 +1,5 @@
 import { DataTable } from '@/components/core/dataTable/data-table';
+import ListaDePreciosForm from '@/components/Forms/listaDePrecios/form';
 import { columns } from '@/components/Tables/listaDePreciosTable/colums';
 import { useDebounce } from '@/hooks/useDebounce';
 import { ContentLayout } from '@/layout/Content-layout';
@@ -48,8 +49,9 @@ const ListaDePrecios = () => {
     dispatch(setLimit(limit));
   };
   return (
-    <ContentLayout title="Detalle de listas">
-      <h1 className="text-3xl text-left mb-4 font-bold">Detalle de listas</h1>
+    <ContentLayout title="Lista de precios">
+      <h1 className="text-3xl text-left mb-4 font-bold">Lista de precios</h1>
+      <ListaDePreciosForm setLocalSearch={setLocalSearch} />
       <DataTable
         columns={columns}
         data={listaPrecios}

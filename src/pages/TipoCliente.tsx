@@ -56,7 +56,7 @@ const TipoCliente = () => {
     <ContentLayout title="Tipo Cliente">
       <BreadCrumbComponent path={pathname} />
       <h1 className="text-3xl text-left mb-4 font-bold">Tipos de Clientes</h1>
-      <TipoClientesForm />
+      <TipoClientesForm setLocalSearch={setLocalSearch} />
       <DataTable
         columns={columns}
         data={tiposCliente}

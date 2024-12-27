@@ -1,4 +1,5 @@
 import api from '@/services/axios';
+import { ListaPrecio } from '@/types/listaPrecio';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const thunks = {
@@ -14,7 +15,7 @@ export const thunks = {
     ) => {
       try {
         const response = await api.get(
-          `listaPrecios?page=${currentPage}&search=${search}&limit=${limit}`
+          `listaPrecios?page=${currentPage}&search=${search}&limit=${limit}&orderDirection=DESC`
         );
 
         return {
@@ -39,6 +40,39 @@ export const thunks = {
         };
       } catch (error: any) {
         return rejectWithValue(error.message || 'Error desconocido');
+      }
+    }
+  ),
+
+  createListaPrecios: createAsyncThunk(
+    'listaPrecios/createListaPrecios',
+    async (data: Partial<ListaPrecio>, { rejectWithValue }) => {
+      try {
+        const response = await api.post('listaPrecios', data);
+
+        return response.data;
+      } catch (error: any) {
+        const errorMessage =
+          error.response?.data?.message || 'Error desconocido';
+        return rejectWithValue(errorMessage);
+      }
+    }
+  ),
+
+  updateListaPrecios: createAsyncThunk(
+    'listaPrecios/updateListaPrecios',
+    async (
+      { id, data }: { id: string; data: Partial<ListaPrecio> },
+      { rejectWithValue }
+    ) => {
+      try {
+        const response = await api.put(`listaPrecios/update-by-id/${id}`, data);
+
+        return response.data;
+      } catch (error: any) {
+        const errorMessage =
+          error.response?.data?.message || 'Error desconocido';
+        return rejectWithValue(errorMessage);
       }
     }
   ),

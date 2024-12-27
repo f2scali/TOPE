@@ -15,8 +15,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { z } from 'zod';
 import { ButtonLoading } from '@/components/ui/button-loading';
 import { useLocation } from 'react-router-dom';
+import {
+  setCurrentPage,
+  setLimit,
+  setSearch,
+} from '@/redux/slices/clientes/clientes.slice';
 
-const ClientesForm: FC<FormProps> = ({ isEdit, initialValues = {} }) => {
+interface ClientesFormProps extends FormProps {
+  setLocalSearch?: (value: string) => void;
+}
+const ClientesForm: FC<ClientesFormProps> = ({
+  isEdit,
+  initialValues = {},
+  setLocalSearch,
+}) => {
   const location = useLocation();
 
   const stateId = location.state?.id;
@@ -130,6 +142,10 @@ const ClientesForm: FC<FormProps> = ({ isEdit, initialValues = {} }) => {
         dispatch(
           CLThunks.fetchClientes({ currentPage: 1, search: '', limit: 10 })
         );
+        dispatch(setCurrentPage(1));
+        dispatch(setSearch(''));
+        dispatch(setLimit(10));
+        setLocalSearch && setLocalSearch('');
         form.reset();
       }
     }
