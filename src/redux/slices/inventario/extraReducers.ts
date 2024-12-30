@@ -24,6 +24,24 @@ const extraReducers = (builder: any) => {
       }
     ),
     builder
+      .addCase(thunks.fetchAllInventario.pending, (state: InventarioState) => {
+        state.loading = true;
+      })
+      .addCase(
+        thunks.fetchAllInventario.fulfilled,
+        (state: InventarioState, action: PayloadAction<InventarioState>) => {
+          state.loading = false;
+          state.inventario = action.payload.inventario;
+        }
+      )
+      .addCase(
+        thunks.fetchAllInventario.rejected,
+        (state: InventarioState, action: PayloadAction<string>) => {
+          state.loading = false;
+          state.error = action.payload as string;
+        }
+      ),
+    builder
       .addCase(
         thunks.createTipoInventario.pending,
         (state: Partial<InventarioState>) => {

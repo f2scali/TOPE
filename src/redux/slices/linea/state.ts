@@ -2,6 +2,7 @@ import { Linea } from '@/types/linea';
 
 export interface LineaState {
   lineas: Linea[];
+  loadingPayload: boolean;
   loading: boolean;
   error: null | string;
   total: number;
@@ -12,6 +13,7 @@ export interface LineaState {
 }
 const initialState: LineaState = {
   lineas: [],
+  loadingPayload: false,
   loading: false,
   error: null,
   total: 0,

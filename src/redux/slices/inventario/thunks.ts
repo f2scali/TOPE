@@ -1,5 +1,5 @@
 import api from '@/services/axios';
-import { TipoInventario } from '@/types/producto';
+import { Inventario } from '@/types/inventario';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const thunks = {
@@ -28,9 +28,22 @@ export const thunks = {
     }
   ),
 
+  fetchAllInventario: createAsyncThunk(
+    'TipoInventario/fetchAllInventario',
+    async (_, { rejectWithValue }) => {
+      try {
+        const response = await api.get('tipoInventario/all');
+        return {
+          inventario: response.data,
+        };
+      } catch (error: any) {
+        return rejectWithValue(error.message || 'Error desconocido');
+      }
+    }
+  ),
   createTipoInventario: createAsyncThunk(
     'TipoInventario/createTipoInventario',
-    async (data: Partial<TipoInventario>, { rejectWithValue }) => {
+    async (data: Partial<Inventario>, { rejectWithValue }) => {
       try {
         const response = await api.post('tipoInventario', data);
         return response.data;
@@ -45,7 +58,7 @@ export const thunks = {
   updateTipoInventario: createAsyncThunk(
     'TipoInventario/updateTipoInventario',
     async (
-      { id, data }: { id: number; data: Partial<TipoInventario> },
+      { id, data }: { id: number; data: Partial<Inventario> },
       { rejectWithValue }
     ) => {
       try {

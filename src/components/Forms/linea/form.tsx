@@ -7,20 +7,21 @@ import {
   setLimit,
   setSearch,
 } from '@/redux/slices/listaPrecios/listaPrecios.slice';
-import { thunks } from '@/redux/slices/listaPrecios/thunks';
+import { thunks } from '@/redux/slices/linea/thunks';
+import { thunks as TIThunks } from '@/redux/slices/inventario/thunks';
 import { AppDispatch, RootState } from '@/redux/store/store';
 import { FieldType } from '@/types/form-generator.types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { z } from 'zod';
 
-interface ListaDePreciosFormProps extends FormProps {
+interface LineaFormProps extends FormProps {
   setLocalSearch?: (value: string) => void;
 }
-const ListaDePreciosForm: FC<ListaDePreciosFormProps> = ({
+const LineaForm: FC<LineaFormProps> = ({
   initialValues = {},
   isEdit,
   setLocalSearch,
@@ -29,25 +30,45 @@ const ListaDePreciosForm: FC<ListaDePreciosFormProps> = ({
 
   const stateId = location.state?.id;
   const dispatch = useDispatch<AppDispatch>();
-  const { loadingPayload } = useSelector(
-    (state: RootState) => state.tipoCliente
-  );
+  const { inventario } = useSelector((state: RootState) => state.inventario);
+
+  useEffect(() => {
+    dispatch(TIThunks.fetchAllInventario());
+  }, []);
+
+  const { loadingPayload } = useSelector((state: RootState) => state.lineas);
   const formFields = [
     {
-      name: 'codLista',
+      name: 'codLinea',
       label: 'Codigo',
       type: FieldType.Text,
       default: '',
       required: false,
+      hidden: isEdit,
       schema: z.string(),
     },
     {
-      name: 'DETALLE',
+      name: 'detalle',
       label: 'Detalle',
       type: FieldType.Text,
       default: '',
       required: true,
       schema: z.preprocess(emptyToUndefined, z.string()),
+    },
+    {
+      name: 'id_tipo_inv',
+      label: 'Tipo de Inventario',
+      type: FieldType.Select,
+      required: true,
+      schema: z.preprocess(
+        (value) => (value ? Number(value) : undefined),
+        z.number()
+      ),
+      options:
+        inventario.map((inv) => ({
+          value: inv.id,
+          label: inv.Detalle,
+        })) || [],
     },
   ] as const;
   const formGenerator = new FormGenerator<typeof formFields>(formFields);
@@ -64,8 +85,8 @@ const ListaDePreciosForm: FC<ListaDePreciosFormProps> = ({
 
   const onSubmit = async (data: FormSchemaType) => {
     const action = isEdit
-      ? thunks.updateListaPrecios({ id: stateId, data })
-      : thunks.createListaPrecios(data);
+      ? thunks.updateLinea({ id: stateId, data })
+      : thunks.createLinea(data);
     const result = await dispatch(action as any);
     if (result.meta.requestStatus === 'rejected') {
       const reduxError = result.payload || 'Ocurrió un error inesperado';
@@ -74,9 +95,7 @@ const ListaDePreciosForm: FC<ListaDePreciosFormProps> = ({
 
     if (result.meta.requestStatus === 'fulfilled') {
       if (!isEdit) {
-        dispatch(
-          thunks.fetchListaPrecios({ currentPage: 1, search: '', limit: 10 })
-        );
+        dispatch(thunks.fetchLineas({ currentPage: 1, search: '', limit: 10 }));
         dispatch(setCurrentPage(1));
         dispatch(setSearch(''));
         dispatch(setLimit(10));
@@ -118,4 +137,4 @@ const ListaDePreciosForm: FC<ListaDePreciosFormProps> = ({
   );
 };
 
-export default ListaDePreciosForm;
+export default LineaForm;

@@ -1,4 +1,5 @@
 import { DataTable } from '@/components/core/dataTable/data-table';
+import LineaForm from '@/components/Forms/linea/form';
 import { columns } from '@/components/Tables/lineaTable/columns';
 import { useDebounce } from '@/hooks/useDebounce';
 import { ContentLayout } from '@/layout/Content-layout';
@@ -50,6 +51,7 @@ const Linea = () => {
   return (
     <ContentLayout title="Lineas">
       <h1 className="text-3xl text-left mb-4 font-bold">Lineas</h1>
+      <LineaForm setLocalSearch={setLocalSearch} />
       <DataTable
         columns={columns}
         data={lineas}
