@@ -1,8 +1,8 @@
-import { TipoInventario } from './producto';
+import { Inventario } from './inventario';
 
 export interface Linea {
   id: number;
   codLinea: string;
   detalle: string;
-  tipoInventario: TipoInventario;
+  tipoInventario: Inventario;
 }

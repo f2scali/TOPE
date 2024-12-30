@@ -17,7 +17,7 @@ export const columns: ColumnDef<Producto>[] = [
     ),
   },
   {
-    accessorFn: (row) => row.tipoInventario?.detalle,
+    accessorFn: (row) => row.tipoInventario?.Detalle,
     header: 'Inventario',
     cell: ({ cell }) => (
       <div className="text-left">{`${cell.getValue()}` || 'Sin Tipo Inv'}</div>

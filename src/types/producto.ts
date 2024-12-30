@@ -1,12 +1,7 @@
 import { Criterio } from './criterio';
+import { Inventario } from './inventario';
 import { Linea } from './linea';
 import { UnidadMedida } from './unidadMed';
-
-export interface TipoInventario {
-  id: number;
-  codInventario: string;
-  detalle: string;
-}
 
 export interface Producto {
   id: number;
@@ -21,7 +16,7 @@ export interface Producto {
   costo: number;
   estado: number;
   linea: Linea;
-  tipoInventario: TipoInventario;
+  tipoInventario: Inventario;
   unidadMed: UnidadMedida;
   criterio: Criterio;
 }
