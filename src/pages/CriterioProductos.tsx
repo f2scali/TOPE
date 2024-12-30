@@ -1,4 +1,5 @@
 import { DataTable } from '@/components/core/dataTable/data-table';
+import CriterioForm from '@/components/Forms/criterio/form';
 import { columns } from '@/components/Tables/criterioTable/column';
 import { useDebounce } from '@/hooks/useDebounce';
 import { ContentLayout } from '@/layout/Content-layout';
@@ -52,6 +53,7 @@ const CriterioProductos = () => {
       <h1 className="text-3xl text-left mb-4 font-bold">
         Criterios para productos
       </h1>
+      <CriterioForm setLocalSearch={setLocalSearch} />
       <DataTable
         columns={columns}
         data={criterios}

@@ -2,6 +2,7 @@ import { Criterio } from '@/types/criterio';
 
 export interface CriteriosState {
   criterios: Criterio[];
+  loadingPayload: boolean;
   loading: boolean;
   error: null | string;
   total: number;
@@ -12,6 +13,7 @@ export interface CriteriosState {
 }
 const initialState: CriteriosState = {
   criterios: [],
+  loadingPayload: false,
   loading: false,
   error: null,
   total: 0,

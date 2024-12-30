@@ -2,7 +2,7 @@ import { Inventario } from './inventario';
 
 export interface Criterio {
   id: number;
-  codCriterio: string;
+  codCriterio: string | null;
   Detalle: string;
   tipoInventario: Inventario;
 }

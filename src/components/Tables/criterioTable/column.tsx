@@ -4,11 +4,15 @@ import { ColumnDef } from '@tanstack/react-table';
 
 import { FaEdit } from 'react-icons/fa';
 import { FaDeleteLeft } from 'react-icons/fa6';
+import { useNavigate } from 'react-router-dom';
 export const columns: ColumnDef<Criterio>[] = [
   {
     accessorKey: 'codCriterio',
     header: 'COD Criterio',
-    cell: ({ cell }) => <div className="text-left">{`${cell.getValue()}`}</div>,
+    cell: ({ cell }) => {
+      const value = cell.getValue();
+      return <div className="text-left">{`${value ?? 'N/A'}`}</div>;
+    },
   },
 
   {
@@ -24,6 +28,7 @@ export const columns: ColumnDef<Criterio>[] = [
   {
     id: 'actions',
     cell: ({ row }) => {
+      const navigate = useNavigate();
       return (
         <DataTableRowActions
           row={row}
@@ -32,8 +37,11 @@ export const columns: ColumnDef<Criterio>[] = [
               label: 'Editar',
               icon: FaEdit,
               color: 'text-blue-500',
-              onClick: (rowData) => {
-                console.log('Edit', rowData);
+              onClick: () => {
+                const criterioData = row.original;
+                navigate(`/criterio/editar/${criterioData.id}`, {
+                  state: criterioData,
+                });
               },
             },
 
