@@ -2,6 +2,7 @@ import { UnidadMedida } from '@/types/unidadMed';
 
 export interface UnidadMedState {
   unidadMed: UnidadMedida[];
+  loadingPayload: boolean;
   loading: boolean;
   error: null | string;
   total: number;
@@ -12,6 +13,7 @@ export interface UnidadMedState {
 }
 const initialState: UnidadMedState = {
   unidadMed: [],
+  loadingPayload: false,
   loading: false,
   error: null,
   total: 0,

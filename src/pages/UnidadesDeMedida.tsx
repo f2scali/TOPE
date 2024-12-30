@@ -11,6 +11,7 @@ import { thunks } from '@/redux/slices/unidadMed/thunks';
 import { AppDispatch, RootState } from '@/redux/store/store';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import UnidadMedForm from '@/components/Forms/unidadMed/form';
 
 const UnidadesDeMedida = () => {
   const [localSearch, setLocalSearch] = useState('');
@@ -50,6 +51,7 @@ const UnidadesDeMedida = () => {
   return (
     <ContentLayout title="Unidades de Medida">
       <h1 className="text-3xl text-left mb-4 font-bold">Unidades de Medida</h1>
+      <UnidadMedForm setLocalSearch={setLocalSearch} />
       <DataTable
         columns={columns}
         data={unidadMed}

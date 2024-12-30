@@ -17,6 +17,7 @@ import EditarListaPrecio from '@/pages/EditarListaPrecio';
 import EditarInventario from '@/pages/EditarInventario';
 import EditarLinea from '@/pages/EditarLinea';
 import EditarCriterio from '@/pages/EditarCriterio';
+import EditarUnidadMed from '@/pages/EditarUnidadMed';
 export const AppRouter = () => {
   const { rutas } = useSelector((state: RootState) => state.rutas);
   const dispatch = useDispatch<AppDispatch>();
@@ -58,6 +59,10 @@ export const AppRouter = () => {
         <Route path="inventario/editar/:id" element={<EditarInventario />} />
         <Route path="linea/editar/:id" element={<EditarLinea />} />
         <Route path="criterio/editar/:id" element={<EditarCriterio />} />
+        <Route
+          path="unidad-inventario/editar/:id"
+          element={<EditarUnidadMed />}
+        />
         <Route path="*" element={<div>404</div>} />
       </Routes>
     </Suspense>
