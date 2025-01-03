@@ -27,4 +27,18 @@ export const thunks = {
       }
     }
   ),
+
+  fetchAllUsuario: createAsyncThunk(
+    'usuarios/fetchAllUsuario',
+    async (_, { rejectWithValue }) => {
+      try {
+        const response = await api.get('usuarios/all');
+        return {
+          usuarios: response.data,
+        };
+      } catch (error: any) {
+        return rejectWithValue(error.message || 'Error desconocido');
+      }
+    }
+  ),
 };

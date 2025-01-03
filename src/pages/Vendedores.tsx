@@ -11,6 +11,7 @@ import { thunks } from '@/redux/slices/vendedor/thunks';
 import { AppDispatch, RootState } from '@/redux/store/store';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import VendedorForm from '@/components/Forms/vendedor/form';
 
 const Vendedores = () => {
   const [localSearch, setLocalSearch] = useState('');
@@ -52,6 +53,7 @@ const Vendedores = () => {
       <h1 className="text-3xl text-left mb-4 font-bold">
         Administrar Vendedores
       </h1>
+      <VendedorForm setLocalSearch={setLocalSearch} />
       <DataTable
         columns={columns}
         data={vendedores}

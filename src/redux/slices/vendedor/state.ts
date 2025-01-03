@@ -2,6 +2,7 @@ import { Vendedor } from '@/types/vendedor';
 
 export interface VendedoresState {
   vendedores: Vendedor[];
+  loadingPayload: boolean;
   loading: boolean;
   error: null | string;
   total: number;
@@ -12,6 +13,7 @@ export interface VendedoresState {
 }
 const initialState: VendedoresState = {
   vendedores: [],
+  loadingPayload: false,
   loading: false,
   error: null,
   total: 0,

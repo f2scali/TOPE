@@ -1,4 +1,5 @@
 import api from '@/services/axios';
+import { Vendedor } from '@/types/vendedor';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const thunks = {
@@ -38,6 +39,37 @@ export const thunks = {
         };
       } catch (error: any) {
         return rejectWithValue(error.message || 'Error desconocido');
+      }
+    }
+  ),
+
+  createVendedor: createAsyncThunk(
+    'Vendedors/createVendedor',
+    async (data: Partial<Vendedor>, { rejectWithValue }) => {
+      try {
+        const response = await api.post('vendedor', data);
+        return response.data;
+      } catch (error: any) {
+        const errorMessage =
+          error.response?.data?.message[0] || 'Error desconocido';
+        return rejectWithValue(errorMessage);
+      }
+    }
+  ),
+
+  updateVendedor: createAsyncThunk(
+    'vendedores/updateVendedor',
+    async (
+      { id, data }: { id: number; data: Partial<Vendedor> },
+      { rejectWithValue }
+    ) => {
+      try {
+        const response = await api.put(`vendedor/update-by-id/${id}`, data);
+        return response.data;
+      } catch (error: any) {
+        const errorMessage =
+          error.response?.data?.message[0] || 'Error desconocido';
+        return rejectWithValue(errorMessage);
       }
     }
   ),

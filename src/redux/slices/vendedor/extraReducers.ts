@@ -40,6 +40,48 @@ const extraReducers = (builder: any) => {
           state.loading = false;
           state.error = action.payload as string;
         }
+      ),
+    builder
+      .addCase(
+        thunks.createVendedor.pending,
+        (state: Partial<VendedoresState>) => {
+          state.loadingPayload = true;
+        }
+      )
+      .addCase(
+        thunks.createVendedor.fulfilled,
+        (state: Partial<VendedoresState>) => {
+          state.loadingPayload = false;
+          state.error = null;
+        }
+      )
+      .addCase(
+        thunks.createVendedor.rejected,
+        (state: Partial<VendedoresState>, action: PayloadAction<any>) => {
+          state.loadingPayload = false;
+          state.error = action.payload as string;
+        }
+      ),
+    builder
+      .addCase(
+        thunks.updateVendedor.pending,
+        (state: Partial<VendedoresState>) => {
+          state.loadingPayload = true;
+        }
+      )
+      .addCase(
+        thunks.updateVendedor.fulfilled,
+        (state: Partial<VendedoresState>) => {
+          state.loadingPayload = false;
+          state.error = null;
+        }
+      )
+      .addCase(
+        thunks.updateVendedor.rejected,
+        (state: Partial<VendedoresState>, action: PayloadAction<any>) => {
+          state.loadingPayload = false;
+          state.error = action.payload as string;
+        }
       );
 };
 
