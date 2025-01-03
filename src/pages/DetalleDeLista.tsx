@@ -1,4 +1,5 @@
 import { DataTable } from '@/components/core/dataTable/data-table';
+import DetalleListaForm from '@/components/Forms/detalleLista/form';
 import { columns } from '@/components/Tables/detalleListaTable/columns';
 import { useDebounce } from '@/hooks/useDebounce';
 import { ContentLayout } from '@/layout/Content-layout';
@@ -50,6 +51,7 @@ const DetalleListaPrecio = () => {
   return (
     <ContentLayout title="Detalle de listas">
       <h1 className="text-3xl text-left mb-4 font-bold">Detalle de listas</h1>
+      <DetalleListaForm setLocalSearch={setLocalSearch} />
       <DataTable
         columns={columns}
         data={detalleListas}

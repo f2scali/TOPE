@@ -4,6 +4,7 @@ import { ColumnDef } from '@tanstack/react-table';
 
 import { FaEdit } from 'react-icons/fa';
 import { FaDeleteLeft } from 'react-icons/fa6';
+import { useNavigate } from 'react-router-dom';
 export const columns: ColumnDef<DetalleLista>[] = [
   {
     accessorKey: 'cod_ListaPrecio',
@@ -14,7 +15,16 @@ export const columns: ColumnDef<DetalleLista>[] = [
   {
     accessorKey: 'PRECIO',
     header: 'Precio',
-    cell: ({ cell }) => <div className="text-left">{`${cell.getValue()}`}</div>,
+    cell: ({ row }) => {
+      const precio = parseFloat(row.getValue('PRECIO'));
+      const formatted = new Intl.NumberFormat('es-CO', {
+        style: 'currency',
+        useGrouping: true,
+        currency: 'COP',
+      }).format(precio);
+
+      return <div className="text-left font-medium">{formatted}</div>;
+    },
   },
 
   {
@@ -31,6 +41,7 @@ export const columns: ColumnDef<DetalleLista>[] = [
   {
     id: 'actions',
     cell: ({ row }) => {
+      const navigate = useNavigate();
       return (
         <DataTableRowActions
           row={row}
@@ -39,8 +50,14 @@ export const columns: ColumnDef<DetalleLista>[] = [
               label: 'Editar',
               icon: FaEdit,
               color: 'text-blue-500',
-              onClick: (rowData) => {
-                console.log('Edit', rowData);
+              onClick: () => {
+                const detalleListaData = row.original;
+                navigate(
+                  `/lista-precios/det-lista-precio/editar/${detalleListaData.id}`,
+                  {
+                    state: detalleListaData,
+                  }
+                );
               },
             },
 

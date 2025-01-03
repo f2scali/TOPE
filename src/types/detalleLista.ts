@@ -8,7 +8,7 @@ interface ListaPrecios {
 export interface DetalleLista {
   id: number;
   cod_ListaPrecio: string;
-  PRECIO: number;
+  PRECIO: number | string;
   producto: Producto;
   listaPrecios: ListaPrecios;
 }

@@ -28,6 +28,19 @@ export const thunks = {
     }
   ),
 
+  fetchAllProductos: createAsyncThunk(
+    'productos/fetchAllProductos',
+    async (_, { rejectWithValue }) => {
+      try {
+        const response = await api.get('producto/all');
+        return {
+          productos: response.data,
+        };
+      } catch (error: any) {
+        return rejectWithValue(error.message || 'Error desconocido');
+      }
+    }
+  ),
   createProducto: createAsyncThunk(
     'Productos/createProducto',
     async (producto: Partial<Producto>, { rejectWithValue }) => {

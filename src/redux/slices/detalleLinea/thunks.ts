@@ -1,4 +1,5 @@
 import api from '@/services/axios';
+import { DetalleLinea } from '@/types/detalleLinea';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const thunks = {
@@ -24,6 +25,37 @@ export const thunks = {
         };
       } catch (error: any) {
         return rejectWithValue(error.message || 'Error desconocido');
+      }
+    }
+  ),
+
+  createDetalleLinea: createAsyncThunk(
+    'lineas/createDetalleLinea',
+    async (data: Partial<DetalleLinea>, { rejectWithValue }) => {
+      try {
+        const response = await api.post('detLinea', data);
+        return response.data;
+      } catch (error: any) {
+        const errorMessage =
+          error.response?.data?.message[0] || 'Error desconocido';
+        return rejectWithValue(errorMessage);
+      }
+    }
+  ),
+
+  updateDetalleLinea: createAsyncThunk(
+    'lineas/updateLinea',
+    async (
+      { id, data }: { id: number; data: Partial<DetalleLinea> },
+      { rejectWithValue }
+    ) => {
+      try {
+        const response = await api.put(`detLinea/update-by-id/${id}`, data);
+        return response.data;
+      } catch (error: any) {
+        const errorMessage =
+          error.response?.data?.message[0] || 'Error desconocido';
+        return rejectWithValue(errorMessage);
       }
     }
   ),

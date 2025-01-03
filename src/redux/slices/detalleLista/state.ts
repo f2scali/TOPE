@@ -3,6 +3,7 @@ import { DetalleLista } from '@/types/detalleLista';
 export interface DetalleListaState {
   detalleListas: DetalleLista[];
   loading: boolean;
+  loadingPayload: boolean;
   error: null | string;
   total: number;
   totalPages: number;
@@ -13,6 +14,7 @@ export interface DetalleListaState {
 const initialState: DetalleListaState = {
   detalleListas: [],
   loading: false,
+  loadingPayload: false,
   error: null,
   total: 0,
   totalPages: 0,
