@@ -1,4 +1,5 @@
 import { DataTable } from '@/components/core/dataTable/data-table';
+import SublineaForm from '@/components/Forms/subLinea/form';
 import { columns } from '@/components/Tables/subLineaTable/columns';
 import { useDebounce } from '@/hooks/useDebounce';
 import { ContentLayout } from '@/layout/Content-layout';
@@ -51,6 +52,7 @@ const SubLinea = () => {
   return (
     <ContentLayout title="SubLineas">
       <h1 className="text-3xl text-left mb-4 font-bold">Sublineas</h1>
+      <SublineaForm setLocalSearch={setLocalSearch} />
       <DataTable
         columns={columns}
         data={subLineas}

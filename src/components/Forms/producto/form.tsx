@@ -189,7 +189,6 @@ const ProductoForm: FC<ProductoFormProps> = ({
   });
 
   const onSubmit = async (data: FormSchemaType) => {
-    console.log(data, 'data');
     const action = isEdit
       ? thunks.editProducto({ id: stateId, data })
       : thunks.createProducto(data);

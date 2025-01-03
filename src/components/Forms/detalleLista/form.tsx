@@ -131,7 +131,7 @@ const DetalleListaForm: FC<DetalleListaFormProps> = ({
   });
 
   const onSubmit = async (data: FormSchemaType) => {
-    console.log(data);
+
     const action = isEdit
       ? thunks.updateDetalleLista({ id: stateId, data })
       : thunks.createDetalleLista(data);
@@ -172,7 +172,7 @@ const DetalleListaForm: FC<DetalleListaFormProps> = ({
         <ButtonLoading className="w-full md:w-[200px] mt-4" />
       ) : (
         <Button className="w-full md:w-[200px] mt-4" type="submit">
-          {isEdit ? 'Guardar cambios' : 'Crear cliente'}
+          {isEdit ? 'Guardar cambios' : 'Crear detalle de lista'}
         </Button>
       )}
     </form>

@@ -135,7 +135,7 @@ const UnidadMedForm: FC<UnidadMedFormProps> = ({
         <ButtonLoading className="w-full md:w-[200px] mt-4" />
       ) : (
         <Button className="w-full md:w-[200px] mt-4" type="submit">
-          {isEdit ? 'Guardar cambios' : 'Crear Lista'}
+          {isEdit ? 'Guardar cambios' : 'Crear unidad de medida'}
         </Button>
       )}
     </form>

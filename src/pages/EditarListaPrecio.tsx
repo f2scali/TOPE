@@ -1,13 +1,12 @@
-import ClientesForm from '@/components/Forms/clientes/form';
 import ListaDePreciosForm from '@/components/Forms/listaDePrecios/form';
 import { ContentLayout } from '@/layout/Content-layout';
 import { useLocation } from 'react-router-dom';
-const EditarCliente = () => {
+const EditarLista = () => {
   const location = useLocation();
   const listaPrecioData = location.state;
 
   return (
-    <ContentLayout title="Editar Cliente">
+    <ContentLayout title="Editar Lista">
       <h1 className="text-2xl text-left mb-10">
         {listaPrecioData.codLista} - {listaPrecioData.DETALLE}
       </h1>
@@ -22,4 +21,4 @@ const EditarCliente = () => {
   );
 };
 
-export default EditarCliente;
+export default EditarLista;

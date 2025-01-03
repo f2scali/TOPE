@@ -2,6 +2,7 @@ import { DetalleLinea } from '@/types/detalleLinea';
 
 export interface DetalleLineaState {
   detalleLineas: DetalleLinea[];
+  loadingPayload: boolean;
   loading: boolean;
   error: null | string;
   total: number;
@@ -12,6 +13,7 @@ export interface DetalleLineaState {
 }
 const initialState: DetalleLineaState = {
   detalleLineas: [],
+  loadingPayload: false,
   loading: false,
   error: null,
   total: 0,

@@ -3,6 +3,7 @@ import { SubLinea } from '@/types/sublinea';
 export interface SubLineaState {
   subLineas: SubLinea[];
   loading: boolean;
+  loadingPayload: boolean;
   error: null | string;
   total: number;
   totalPages: number;
@@ -13,6 +14,7 @@ export interface SubLineaState {
 const initialState: SubLineaState = {
   subLineas: [],
   loading: false,
+  loadingPayload: false,
   error: null,
   total: 0,
   totalPages: 0,

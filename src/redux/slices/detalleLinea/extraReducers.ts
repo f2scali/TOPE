@@ -22,7 +22,49 @@ const extraReducers = (builder: any) => {
         state.loading = false;
         state.error = action.payload as string;
       }
-    );
+    ),
+    builder
+      .addCase(
+        thunks.createDetalleLinea.pending,
+        (state: Partial<DetalleLineaState>) => {
+          state.loadingPayload = true;
+        }
+      )
+      .addCase(
+        thunks.createDetalleLinea.fulfilled,
+        (state: Partial<DetalleLineaState>) => {
+          state.loadingPayload = false;
+          state.error = null;
+        }
+      )
+      .addCase(
+        thunks.createDetalleLinea.rejected,
+        (state: Partial<DetalleLineaState>, action: PayloadAction<any>) => {
+          state.loadingPayload = false;
+          state.error = action.payload as string;
+        }
+      ),
+    builder
+      .addCase(
+        thunks.updateDetalleLinea.pending,
+        (state: Partial<DetalleLineaState>) => {
+          state.loadingPayload = true;
+        }
+      )
+      .addCase(
+        thunks.updateDetalleLinea.fulfilled,
+        (state: Partial<DetalleLineaState>) => {
+          state.loadingPayload = false;
+          state.error = null;
+        }
+      )
+      .addCase(
+        thunks.updateDetalleLinea.rejected,
+        (state: Partial<DetalleLineaState>, action: PayloadAction<any>) => {
+          state.loadingPayload = false;
+          state.error = action.payload as string;
+        }
+      );
 };
 
 export default extraReducers;

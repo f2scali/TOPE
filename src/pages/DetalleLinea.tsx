@@ -11,6 +11,7 @@ import { thunks } from '@/redux/slices/detalleLinea/thunks';
 import { AppDispatch, RootState } from '@/redux/store/store';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import DetLineaForm from '@/components/Forms/detLinea/form';
 
 const DetalleLinea = () => {
   const [localSearch, setLocalSearch] = useState('');
@@ -50,6 +51,7 @@ const DetalleLinea = () => {
   return (
     <ContentLayout title="Detalle de lineas">
       <h1 className="text-3xl text-left mb-4 font-bold">Detalle de lineas</h1>
+      <DetLineaForm setLocalSearch={setLocalSearch} />
       <DataTable
         columns={columns}
         data={detalleLineas}

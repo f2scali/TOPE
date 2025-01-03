@@ -7,8 +7,8 @@ import {
   setLimit,
   setSearch,
 } from '@/redux/slices/listaPrecios/listaPrecios.slice';
-import { thunks } from '@/redux/slices/criterios/thunks';
-import { thunks as TIThunks } from '@/redux/slices/inventario/thunks';
+import { thunks } from '@/redux/slices/detalleLinea/thunks';
+import { thunks as SLThunks } from '@/redux/slices/sublinea/thunks';
 import { AppDispatch, RootState } from '@/redux/store/store';
 import { FieldType } from '@/types/form-generator.types';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -18,10 +18,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { z } from 'zod';
 
-interface CriterioFormProps extends FormProps {
+interface DetLineaFormProps extends FormProps {
   setLocalSearch?: (value: string) => void;
 }
-const CriterioForm: FC<CriterioFormProps> = ({
+const DetLineaForm: FC<DetLineaFormProps> = ({
   initialValues = {},
   isEdit,
   setLocalSearch,
@@ -30,28 +30,27 @@ const CriterioForm: FC<CriterioFormProps> = ({
 
   const stateId = location.state?.id;
   const dispatch = useDispatch<AppDispatch>();
-  const { inventario } = useSelector((state: RootState) => state.inventario);
+  const { subLineas } = useSelector((state: RootState) => state.subLineas);
 
   useEffect(() => {
-    dispatch(TIThunks.fetchAllInventario());
+    dispatch(SLThunks.fetchAllSublineas());
   }, []);
 
-  const { loadingPayload } = useSelector((state: RootState) => state.criterios);
+  const { loadingPayload } = useSelector(
+    (state: RootState) => state.detalleLineas
+  );
   const formFields = [
     {
-      name: 'codCriterio',
+      name: 'codDetLinea',
       label: 'Codigo',
       type: FieldType.Text,
       default: '',
       required: false,
       hidden: isEdit,
-      schema: z.preprocess(
-        (value) => (value === '' ? null : value),
-        z.string().nullable()
-      ),
+      schema: z.string(),
     },
     {
-      name: 'Detalle',
+      name: 'detalle',
       label: 'Detalle',
       type: FieldType.Text,
       default: '',
@@ -59,8 +58,8 @@ const CriterioForm: FC<CriterioFormProps> = ({
       schema: z.preprocess(emptyToUndefined, z.string()),
     },
     {
-      name: 'id_tipo_inv',
-      label: 'Tipo de Inventario',
+      name: 'id_sublinea',
+      label: 'Sublinea',
       type: FieldType.Select,
       required: true,
       schema: z.preprocess(
@@ -68,9 +67,9 @@ const CriterioForm: FC<CriterioFormProps> = ({
         z.number()
       ),
       options:
-        inventario.map((inv) => ({
+        subLineas.map((inv) => ({
           value: inv.id,
-          label: inv.Detalle,
+          label: inv.detalle,
         })) || [],
     },
   ] as const;
@@ -88,8 +87,8 @@ const CriterioForm: FC<CriterioFormProps> = ({
 
   const onSubmit = async (data: FormSchemaType) => {
     const action = isEdit
-      ? thunks.editCriterio({ id: stateId, data })
-      : thunks.createCriterio(data);
+      ? thunks.updateDetalleLinea({ id: stateId, data })
+      : thunks.createDetalleLinea(data);
     const result = await dispatch(action as any);
     if (result.meta.requestStatus === 'rejected') {
       const reduxError = result.payload || 'Ocurrió un error inesperado';
@@ -99,7 +98,7 @@ const CriterioForm: FC<CriterioFormProps> = ({
     if (result.meta.requestStatus === 'fulfilled') {
       if (!isEdit) {
         dispatch(
-          thunks.fetchCriterios({ currentPage: 1, search: '', limit: 10 })
+          thunks.fetchDetalleLineas({ currentPage: 1, search: '', limit: 10 })
         );
         dispatch(setCurrentPage(1));
         dispatch(setSearch(''));
@@ -135,11 +134,11 @@ const CriterioForm: FC<CriterioFormProps> = ({
         <ButtonLoading className="w-full md:w-[200px] mt-4" />
       ) : (
         <Button className="w-full md:w-[200px] mt-4" type="submit">
-          {isEdit ? 'Guardar cambios' : 'Crear Criterio'}
+          {isEdit ? 'Guardar cambios' : 'Crear detalle de linea'}
         </Button>
       )}
     </form>
   );
 };
 
-export default CriterioForm;
+export default DetLineaForm;

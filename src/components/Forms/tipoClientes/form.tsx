@@ -18,7 +18,7 @@ import { useLocation } from 'react-router-dom';
 import { z } from 'zod';
 
 interface TipoClientesFormProps extends FormProps {
-  setLocalSearch: (value: string) => void;
+  setLocalSearch?: (value: string) => void;
 }
 const TipoClientesForm: FC<TipoClientesFormProps> = ({
   initialValues = {},
@@ -80,7 +80,7 @@ const TipoClientesForm: FC<TipoClientesFormProps> = ({
         dispatch(setCurrentPage(1));
         dispatch(setSearch(''));
         dispatch(setLimit(10));
-        setLocalSearch('');
+        setLocalSearch && setLocalSearch('');
         form.reset();
       }
     }

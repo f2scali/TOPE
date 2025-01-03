@@ -4,12 +4,13 @@ import { ColumnDef } from '@tanstack/react-table';
 
 import { FaEdit } from 'react-icons/fa';
 import { FaDeleteLeft } from 'react-icons/fa6';
+import { useNavigate } from 'react-router-dom';
 export const columns: ColumnDef<DetalleLinea>[] = [
-  //   {
-  //     accessorKey: 'codLinea',
-  //     header: 'COD Linea',
-  //     cell: ({ cell }) => <div className="text-left">{`${cell.getValue()}`}</div>,
-  //   },
+  {
+    accessorKey: 'codDetLinea',
+    header: 'COD',
+    cell: ({ cell }) => <div className="text-left">{`${cell.getValue()}`}</div>,
+  },
 
   {
     accessorKey: 'detalle',
@@ -17,8 +18,14 @@ export const columns: ColumnDef<DetalleLinea>[] = [
     cell: ({ cell }) => <div className="text-left">{`${cell.getValue()}`}</div>,
   },
   {
+    accessorFn: (row) => row.sublinea.detalle,
+    header: 'Sublinea',
+    cell: ({ cell }) => <div className="text-left">{`${cell.getValue()}`}</div>,
+  },
+  {
     id: 'actions',
     cell: ({ row }) => {
+      const navigate = useNavigate();
       return (
         <DataTableRowActions
           row={row}
@@ -27,8 +34,15 @@ export const columns: ColumnDef<DetalleLinea>[] = [
               label: 'Editar',
               icon: FaEdit,
               color: 'text-blue-500',
-              onClick: (rowData) => {
-                console.log('Edit', rowData);
+              onClick: () => {
+                const detLineaData = row.original;
+                navigate(
+                  `/agrupacion-productos/det-linea/editar/${detLineaData.id}`,
+                  {
+                    state: detLineaData,
+                  }
+                );
+                // console.log('Edit', rowData);
               },
             },
 
