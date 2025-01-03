@@ -27,7 +27,20 @@ export const thunks = {
       }
     }
   ),
+  fetchAllCriterios: createAsyncThunk(
+    'criterios/fetchAllCriterios',
+    async (_, { rejectWithValue }) => {
+      try {
+        const response = await api.get('criterio/all');
 
+        return {
+          criterios: response.data,
+        };
+      } catch (error: any) {
+        return rejectWithValue(error.message || 'Error desconocido');
+      }
+    }
+  ),
   createCriterio: createAsyncThunk(
     'criterios/createCriterio',
     async (Criterio: Partial<Criterio>, { rejectWithValue }) => {

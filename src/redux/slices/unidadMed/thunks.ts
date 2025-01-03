@@ -28,7 +28,20 @@ export const thunks = {
       }
     }
   ),
+  fetchAllUnidadMed: createAsyncThunk(
+    'unidadMed/fetchAllUnidadMed',
+    async (_, { rejectWithValue }) => {
+      try {
+        const response = await api.get('unidadMed/all');
 
+        return {
+          unidadMed: response.data,
+        };
+      } catch (error: any) {
+        return rejectWithValue(error.message || 'Error desconocido');
+      }
+    }
+  ),
   createUnidadMed: createAsyncThunk(
     'unidadMedida/createUnidadMed',
     async (data: Partial<UnidadMedida>, { rejectWithValue }) => {

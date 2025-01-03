@@ -33,7 +33,7 @@ export const thunks = {
     'Lineas/fetchAllLineas',
     async (_, { rejectWithValue }) => {
       try {
-        const response = await api.get('lineas/all');
+        const response = await api.get('linea/all');
 
         return {
           lineas: response.data,

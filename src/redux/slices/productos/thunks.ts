@@ -1,4 +1,5 @@
 import api from '@/services/axios';
+import { Producto } from '@/types/producto';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const thunks = {
@@ -14,7 +15,7 @@ export const thunks = {
     ) => {
       try {
         const response = await api.get(
-          `producto?page=${currentPage}&search=${search}&limit=${limit}`
+          `producto?page=${currentPage}&search=${search}&limit=${limit}&orderDirection=DESC`
         );
         return {
           productos: response.data.data,
@@ -23,6 +24,37 @@ export const thunks = {
         };
       } catch (error: any) {
         return rejectWithValue(error.message || 'Error desconocido');
+      }
+    }
+  ),
+
+  createProducto: createAsyncThunk(
+    'Productos/createProducto',
+    async (producto: Partial<Producto>, { rejectWithValue }) => {
+      try {
+        const response = await api.post('producto', producto);
+        return response.data;
+      } catch (error: any) {
+        console.log(error);
+        return rejectWithValue(
+          error.response.data.message[0] || 'Error desconocido'
+        );
+      }
+    }
+  ),
+  editProducto: createAsyncThunk(
+    'Productos/editProducto',
+    async (
+      { id, data }: { id: number; data: Partial<Producto> },
+      { rejectWithValue }
+    ) => {
+      try {
+        const response = await api.put(`producto/update-by-id/${id}`, data);
+        return response.data;
+      } catch (error: any) {
+        return rejectWithValue(
+          error.response.data.message[0] || 'Error desconocido'
+        );
       }
     }
   ),

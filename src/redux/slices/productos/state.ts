@@ -3,6 +3,7 @@ import { Producto } from '../../../types/producto';
 export interface ProductoState {
   productos: Producto[];
   loading: boolean;
+  loadingPayload: boolean;
   error: null | string;
   total: number;
   totalPages: number;
@@ -13,6 +14,7 @@ export interface ProductoState {
 const initialState: ProductoState = {
   productos: [],
   loading: false,
+  loadingPayload: false,
   error: null,
   total: 0,
   totalPages: 0,

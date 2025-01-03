@@ -24,6 +24,24 @@ const extraReducers = (builder: any) => {
       }
     ),
     builder
+      .addCase(thunks.fetchAllUnidadMed.pending, (state: UnidadMedState) => {
+        state.loading = true;
+      })
+      .addCase(
+        thunks.fetchAllUnidadMed.fulfilled,
+        (state: UnidadMedState, action: PayloadAction<UnidadMedState>) => {
+          state.loading = false;
+          state.unidadMed = action.payload.unidadMed;
+        }
+      )
+      .addCase(
+        thunks.fetchAllUnidadMed.rejected,
+        (state: UnidadMedState, action: PayloadAction<string>) => {
+          state.loading = false;
+          state.error = action.payload as string;
+        }
+      ),
+    builder
       .addCase(
         thunks.createUnidadMed.pending,
         (state: Partial<UnidadMedState>) => {

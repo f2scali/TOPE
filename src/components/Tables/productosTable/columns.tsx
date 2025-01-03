@@ -4,6 +4,7 @@ import { ColumnDef } from '@tanstack/react-table';
 
 import { FaEdit } from 'react-icons/fa';
 import { FaDeleteLeft } from 'react-icons/fa6';
+import { useNavigate } from 'react-router-dom';
 export const columns: ColumnDef<Producto>[] = [
   {
     accessorKey: 'id',
@@ -24,13 +25,6 @@ export const columns: ColumnDef<Producto>[] = [
     ),
   },
   {
-    accessorFn: (row) => row.linea?.detalle,
-    header: 'Línea',
-    cell: ({ cell }) => (
-      <div className="text-left">{`${cell.getValue()}` || 'Sin Linea'}</div>
-    ),
-  },
-  {
     accessorKey: 'descripcion',
     header: 'Descripción',
     cell: ({ row }) => (
@@ -44,6 +38,14 @@ export const columns: ColumnDef<Producto>[] = [
       <div className="text-left">{row.getValue('id_referencia')}</div>
     ),
   },
+  {
+    accessorFn: (row) => row.linea?.detalle,
+    header: 'Línea',
+    cell: ({ cell }) => (
+      <div className="text-left">{`${cell.getValue()}` || 'Sin Linea'}</div>
+    ),
+  },
+
   {
     accessorFn: (row) => row.unidadMed?.Detalle,
     header: 'Unidad Medida',
@@ -65,9 +67,10 @@ export const columns: ColumnDef<Producto>[] = [
     header: 'Costo',
     cell: ({ row }) => {
       const cost = parseFloat(row.getValue('costo'));
-      const formatted = new Intl.NumberFormat('en-US', {
+      const formatted = new Intl.NumberFormat('es-CO', {
         style: 'currency',
-        currency: 'USD',
+        useGrouping: true,
+        currency: 'COP',
       }).format(cost);
 
       return <div className="text-left font-medium">{formatted}</div>;
@@ -76,6 +79,7 @@ export const columns: ColumnDef<Producto>[] = [
   {
     id: 'actions',
     cell: ({ row }) => {
+      const navigate = useNavigate();
       return (
         <DataTableRowActions
           row={row}
@@ -85,7 +89,10 @@ export const columns: ColumnDef<Producto>[] = [
               icon: FaEdit,
               color: 'text-blue-500',
               onClick: (rowData) => {
-                console.log('Edit', rowData);
+                const productoData = row.original;
+                navigate(`/productos/editar/${productoData.id}`, {
+                  state: productoData,
+                });
               },
             },
 

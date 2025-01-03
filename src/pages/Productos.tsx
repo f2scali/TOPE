@@ -1,5 +1,6 @@
 import { BreadCrumbComponent } from '@/components/core/breadcrumb';
 import { DataTable } from '@/components/core/dataTable/data-table';
+import ProductoForm from '@/components/Forms/producto/form';
 import { columns } from '@/components/Tables/productosTable/columns';
 import { useDebounce } from '@/hooks/useDebounce';
 import { ContentLayout } from '@/layout/Content-layout';
@@ -56,7 +57,7 @@ const Productos = () => {
     <ContentLayout title="Productos">
       <BreadCrumbComponent path={pathName} />
       <h1 className="text-3xl text-left mb-4 font-bold">Productos</h1>
-
+      <ProductoForm setLocalSearch={setLocalSearch} />
       <DataTable
         columns={columns}
         data={productos}
