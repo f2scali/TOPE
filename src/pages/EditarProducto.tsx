@@ -1,4 +1,3 @@
-import ClientesForm from '@/components/Forms/clientes/form';
 import ProductoForm from '@/components/Forms/producto/form';
 import { ContentLayout } from '@/layout/Content-layout';
 import { useLocation } from 'react-router-dom';

@@ -88,7 +88,7 @@ export const columns: ColumnDef<Producto>[] = [
               label: 'Editar',
               icon: FaEdit,
               color: 'text-blue-500',
-              onClick: (rowData) => {
+              onClick: () => {
                 const productoData = row.original;
                 navigate(`/productos/editar/${productoData.id}`, {
                   state: productoData,
