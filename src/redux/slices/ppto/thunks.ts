@@ -1,10 +1,11 @@
 import api from '@/services/axios';
-import { Cliente } from '@/types/clientes';
+import { Ppto } from '@/types/ppto';
+
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const thunks = {
-  fetchClientes: createAsyncThunk(
-    'clientes/fetchClientes',
+  fetchPpto: createAsyncThunk(
+    'ppto/fetchPpto',
     async (
       {
         currentPage,
@@ -15,10 +16,10 @@ export const thunks = {
     ) => {
       try {
         const response = await api.get(
-          `clientes?page=${currentPage}&search=${search}&limit=${limit}&orderDirection=DESC`
+          `ppto?page=${currentPage}&search=${search}&limit=${limit}&orderDirection=DESC`
         );
         return {
-          clientes: response.data.data,
+          presupuestos: response.data.data,
           total: response.data.total,
           totalPages: response.data.totalPages,
         };
@@ -28,25 +29,11 @@ export const thunks = {
     }
   ),
 
-  fetchAllClientes: createAsyncThunk(
-    'clientes/fetchAllClientes',
-    async (_, { rejectWithValue }) => {
+  createPpto: createAsyncThunk(
+    'ppto/createPpto',
+    async (Ppto: Partial<Ppto>, { rejectWithValue }) => {
       try {
-        const response = await api.get('clientes/all');
-
-        return {
-          clientes: response.data,
-        };
-      } catch (error: any) {
-        return rejectWithValue(error.message || 'Error desconocido');
-      }
-    }
-  ),
-  createCliente: createAsyncThunk(
-    'clientes/createCliente',
-    async (cliente: Partial<Cliente>, { rejectWithValue }) => {
-      try {
-        const response = await api.post('clientes', cliente);
+        const response = await api.post('ppto', Ppto);
         return response.data;
       } catch (error: any) {
         console.log(error);
@@ -56,14 +43,14 @@ export const thunks = {
       }
     }
   ),
-  editCliente: createAsyncThunk(
-    'clientes/editCliente',
+  editPpto: createAsyncThunk(
+    'ppto/editPpto',
     async (
-      { id, data }: { id: number; data: Partial<Cliente> },
+      { id, data }: { id: number; data: Partial<Ppto> },
       { rejectWithValue }
     ) => {
       try {
-        const response = await api.put(`clientes/update-by-id/${id}`, data);
+        const response = await api.put(`ppto/update-by-id/${id}`, data);
         return response.data;
       } catch (error: any) {
         return rejectWithValue(

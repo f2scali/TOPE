@@ -24,6 +24,24 @@ const extraReducers = (builder: any) => {
       }
     ),
     builder
+      .addCase(thunks.fetchAllClientes.pending, (state: ClienteState) => {
+        state.loading = true;
+      })
+      .addCase(
+        thunks.fetchAllClientes.fulfilled,
+        (state: ClienteState, action: PayloadAction<ClienteState>) => {
+          state.loading = false;
+          state.clientes = action.payload.clientes;
+        }
+      )
+      .addCase(
+        thunks.fetchAllClientes.rejected,
+        (state: ClienteState, action: PayloadAction<string>) => {
+          state.loading = false;
+          state.error = action.payload as string;
+        }
+      ),
+    builder
       .addCase(thunks.createCliente.pending, (state: Partial<ClienteState>) => {
         state.loadingPayload = true;
       })

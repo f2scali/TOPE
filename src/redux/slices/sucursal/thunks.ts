@@ -1,10 +1,11 @@
 import api from '@/services/axios';
-import { Cliente } from '@/types/clientes';
+import { Sucursal } from '@/types/sucursal';
+
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const thunks = {
-  fetchClientes: createAsyncThunk(
-    'clientes/fetchClientes',
+  fetchSucursal: createAsyncThunk(
+    'sucursal/fetchsucursal',
     async (
       {
         currentPage,
@@ -15,10 +16,10 @@ export const thunks = {
     ) => {
       try {
         const response = await api.get(
-          `clientes?page=${currentPage}&search=${search}&limit=${limit}&orderDirection=DESC`
+          `sucursal?page=${currentPage}&search=${search}&limit=${limit}&orderDirection=DESC`
         );
         return {
-          clientes: response.data.data,
+          sucursales: response.data.data,
           total: response.data.total,
           totalPages: response.data.totalPages,
         };
@@ -28,25 +29,11 @@ export const thunks = {
     }
   ),
 
-  fetchAllClientes: createAsyncThunk(
-    'clientes/fetchAllClientes',
-    async (_, { rejectWithValue }) => {
+  createSucursal: createAsyncThunk(
+    'sucursal/createSucursal',
+    async (Sucursal: Partial<Sucursal>, { rejectWithValue }) => {
       try {
-        const response = await api.get('clientes/all');
-
-        return {
-          clientes: response.data,
-        };
-      } catch (error: any) {
-        return rejectWithValue(error.message || 'Error desconocido');
-      }
-    }
-  ),
-  createCliente: createAsyncThunk(
-    'clientes/createCliente',
-    async (cliente: Partial<Cliente>, { rejectWithValue }) => {
-      try {
-        const response = await api.post('clientes', cliente);
+        const response = await api.post('sucursal', Sucursal);
         return response.data;
       } catch (error: any) {
         console.log(error);
@@ -56,14 +43,14 @@ export const thunks = {
       }
     }
   ),
-  editCliente: createAsyncThunk(
-    'clientes/editCliente',
+  editSucursal: createAsyncThunk(
+    'sucursal/editSucursal',
     async (
-      { id, data }: { id: number; data: Partial<Cliente> },
+      { id, data }: { id: number; data: Partial<Sucursal> },
       { rejectWithValue }
     ) => {
       try {
-        const response = await api.put(`clientes/update-by-id/${id}`, data);
+        const response = await api.put(`sucursal/update-by-id/${id}`, data);
         return response.data;
       } catch (error: any) {
         return rejectWithValue(
