@@ -4,6 +4,7 @@ import { ColumnDef } from '@tanstack/react-table';
 
 import { FaEdit } from 'react-icons/fa';
 import { FaDeleteLeft } from 'react-icons/fa6';
+import { useNavigate } from 'react-router-dom';
 export const columns: ColumnDef<Vendedor>[] = [
   {
     accessorKey: 'NOMBRE',
@@ -35,6 +36,7 @@ export const columns: ColumnDef<Vendedor>[] = [
   {
     id: 'actions',
     cell: ({ row }) => {
+      const navigate = useNavigate();
       return (
         <DataTableRowActions
           row={row}
@@ -43,8 +45,11 @@ export const columns: ColumnDef<Vendedor>[] = [
               label: 'Editar',
               icon: FaEdit,
               color: 'text-blue-500',
-              onClick: (rowData) => {
-                console.log('Edit', rowData);
+              onClick: () => {
+                const vendedorData = row.original;
+                navigate(`/usuarios/vendedores/editar/${vendedorData.id}`, {
+                  state: vendedorData,
+                });
               },
             },
 
