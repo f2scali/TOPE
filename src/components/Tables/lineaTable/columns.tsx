@@ -5,7 +5,15 @@ import { ColumnDef } from '@tanstack/react-table';
 import { FaEdit } from 'react-icons/fa';
 import { FaDeleteLeft } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
-export const columns: ColumnDef<Linea>[] = [
+
+interface ColumnsProps {
+  setOpenDialog: (value: boolean) => void;
+  setSelectedItem: (item: Linea) => void;
+}
+export const columns = ({
+  setOpenDialog,
+  setSelectedItem,
+}: ColumnsProps): ColumnDef<Linea>[] => [
   {
     accessorKey: 'codLinea',
     header: 'COD Linea',
@@ -27,32 +35,35 @@ export const columns: ColumnDef<Linea>[] = [
     cell: ({ row }) => {
       const navigate = useNavigate();
       return (
-        <DataTableRowActions
-          row={row}
-          actions={[
-            {
-              label: 'Editar',
-              icon: FaEdit,
-              color: 'text-blue-500',
-              onClick: () => {
-                const lineaData = row.original;
-                navigate(`/linea/editar/${lineaData.id}`, {
-                  state: row.original,
-                });
-                console.log('Edit', lineaData);
+        <div>
+          <DataTableRowActions
+            row={row}
+            actions={[
+              {
+                label: 'Editar',
+                icon: FaEdit,
+                color: 'text-blue-500',
+                onClick: () => {
+                  const lineaData = row.original;
+                  navigate(`/linea/editar/${lineaData.id}`, {
+                    state: row.original,
+                  });
+                  console.log('Edit', lineaData);
+                },
               },
-            },
 
-            {
-              label: 'Borrar',
-              icon: FaDeleteLeft,
-              color: 'text-red-500',
-              onClick: (rowData) => {
-                console.log('Borrar', rowData);
+              {
+                label: 'Borrar',
+                icon: FaDeleteLeft,
+                color: 'text-red-500',
+                onClick: (rowData) => {
+                  setOpenDialog(true);
+                  setSelectedItem(rowData);
+                },
               },
-            },
-          ]}
-        />
+            ]}
+          />
+        </div>
       );
     },
   },

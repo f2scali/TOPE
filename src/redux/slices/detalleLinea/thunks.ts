@@ -59,4 +59,19 @@ export const thunks = {
       }
     }
   ),
+
+  deleteDetalleLinea: createAsyncThunk(
+    'detalleLinea/deleteDetalleLinea',
+    async (id: number, { rejectWithValue }) => {
+      try {
+        const response = await api.patch(`detLinea/${id}?estado=0`);
+
+        return response.data;
+      } catch (error: any) {
+        const errorMessage =
+          error.response?.data?.message[0] || 'Error desconocido';
+        return rejectWithValue(errorMessage);
+      }
+    }
+  ),
 };

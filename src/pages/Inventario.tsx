@@ -2,7 +2,6 @@ import { DataTable } from '@/components/core/dataTable/data-table';
 import DialogCustom from '@/components/core/dialogDelete';
 import TipoInventarioForm from '@/components/Forms/tipoInventario/form';
 import { columns } from '@/components/Tables/InventarioTable/columns';
-import { Dialog, DialogFooter } from '@/components/ui/dialog';
 import { useDebounce } from '@/hooks/useDebounce';
 import { ContentLayout } from '@/layout/Content-layout';
 import {
@@ -59,7 +58,6 @@ const Inventario = () => {
       const response = await dispatch(thunks.deleteTipoInventario(id));
 
       if (response.meta.requestStatus === 'fulfilled') {
-        // Si el delete es exitoso, hacer fetch de nuevo
         await dispatch(
           thunks.fetchInventario({
             currentPage,
@@ -67,7 +65,7 @@ const Inventario = () => {
             limit,
           })
         );
-        setOpenDialog(false); // Cerrar el modal
+        setOpenDialog(false);
       } else {
         console.error('Error eliminando el item:', response.payload);
       }

@@ -5,7 +5,15 @@ import { ColumnDef } from '@tanstack/react-table';
 import { FaEdit } from 'react-icons/fa';
 import { FaDeleteLeft } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
-export const columns: ColumnDef<DetalleLinea>[] = [
+
+interface ColumnsProps {
+  setOpenDialog: (value: boolean) => void;
+  setSelectedItem: (item: DetalleLinea) => void;
+}
+export const columns = ({
+  setOpenDialog,
+  setSelectedItem,
+}: ColumnsProps): ColumnDef<DetalleLinea>[] => [
   {
     accessorKey: 'codDetLinea',
     header: 'COD',
@@ -42,7 +50,6 @@ export const columns: ColumnDef<DetalleLinea>[] = [
                     state: detLineaData,
                   }
                 );
-                // console.log('Edit', rowData);
               },
             },
 
@@ -51,7 +58,8 @@ export const columns: ColumnDef<DetalleLinea>[] = [
               icon: FaDeleteLeft,
               color: 'text-red-500',
               onClick: (rowData) => {
-                console.log('Borrar', rowData);
+                setOpenDialog(true);
+                setSelectedItem(rowData);
               },
             },
           ]}
