@@ -5,7 +5,15 @@ import { ColumnDef } from '@tanstack/react-table';
 import { FaEdit } from 'react-icons/fa';
 import { FaDeleteLeft } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
-export const columns: ColumnDef<Ppto>[] = [
+
+interface ColumnsProps {
+  setOpenDialog: (value: boolean) => void;
+  setSelectedItem: (item: Ppto) => void;
+}
+export const columns = ({
+  setOpenDialog,
+  setSelectedItem,
+}: ColumnsProps): ColumnDef<Ppto>[] => [
   {
     accessorKey: 'Año',
     header: 'Año',
@@ -69,7 +77,8 @@ export const columns: ColumnDef<Ppto>[] = [
               icon: FaDeleteLeft,
               color: 'text-red-500',
               onClick: (rowData) => {
-                console.log('Borrar', rowData);
+                setOpenDialog(true);
+                setSelectedItem(rowData);
               },
             },
           ]}

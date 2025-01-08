@@ -73,4 +73,19 @@ export const thunks = {
       }
     }
   ),
+
+  deleteVendedor: createAsyncThunk(
+    'vendedor/deleteVendedor',
+    async (id: number, { rejectWithValue }) => {
+      try {
+        const response = await api.patch(`vendedor/${id}?estado=0`);
+
+        return response.data;
+      } catch (error: any) {
+        const errorMessage =
+          error.response?.data?.message || 'Error desconocido';
+        return rejectWithValue(errorMessage);
+      }
+    }
+  ),
 };

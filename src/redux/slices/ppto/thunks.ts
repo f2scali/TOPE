@@ -59,4 +59,19 @@ export const thunks = {
       }
     }
   ),
+
+  deletePpto: createAsyncThunk(
+    'ppto/deletePpto',
+    async (id: number, { rejectWithValue }) => {
+      try {
+        const response = await api.patch(`ppto/${id}?estado=0`);
+
+        return response.data;
+      } catch (error: any) {
+        const errorMessage =
+          error.response?.data?.message || 'Error desconocido';
+        return rejectWithValue(errorMessage);
+      }
+    }
+  ),
 };
