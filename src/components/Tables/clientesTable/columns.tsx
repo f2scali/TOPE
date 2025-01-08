@@ -1,12 +1,19 @@
 import { DataTableRowActions } from '@/components/core/dataTable/row-actions';
-import EditarCliente from '@/pages/EditarCliente';
 import { Cliente } from '@/types/clientes';
 import { ColumnDef } from '@tanstack/react-table';
 
 import { FaEdit } from 'react-icons/fa';
 import { FaDeleteLeft } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
-export const columns: ColumnDef<Cliente>[] = [
+
+interface ColumnsProps {
+  setOpenDialog: (value: boolean) => void;
+  setSelectedItem: (item: Cliente) => void;
+}
+export const columns = ({
+  setOpenDialog,
+  setSelectedItem,
+}: ColumnsProps): ColumnDef<Cliente>[] => [
   {
     accessorKey: 'NIT',
     header: 'NIT',
@@ -67,7 +74,8 @@ export const columns: ColumnDef<Cliente>[] = [
               icon: FaDeleteLeft,
               color: 'text-red-500',
               onClick: (rowData) => {
-                console.log('Borrar', rowData);
+                setOpenDialog(true);
+                setSelectedItem(rowData);
               },
             },
           ]}

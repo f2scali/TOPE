@@ -59,4 +59,19 @@ export const thunks = {
       }
     }
   ),
+
+  deleteSucursal: createAsyncThunk(
+    'sucursal/deleteSucursal',
+    async (id: number, { rejectWithValue }) => {
+      try {
+        const response = await api.patch(`sucursal/${id}?estado=0`);
+
+        return response.data;
+      } catch (error: any) {
+        const errorMessage =
+          error.response?.data?.message || 'Error desconocido';
+        return rejectWithValue(errorMessage);
+      }
+    }
+  ),
 };

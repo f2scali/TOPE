@@ -5,7 +5,14 @@ import { ColumnDef } from '@tanstack/react-table';
 import { FaEdit } from 'react-icons/fa';
 import { FaDeleteLeft } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
-export const columns: ColumnDef<TipoCliente>[] = [
+interface ColumnsProps {
+  setOpenDialog: (value: boolean) => void;
+  setSelectedItem: (item: TipoCliente) => void;
+}
+export const columns = ({
+  setOpenDialog,
+  setSelectedItem,
+}: ColumnsProps): ColumnDef<TipoCliente>[] => [
   {
     accessorKey: 'codTipoCliente',
     header: 'COD Tipo',
@@ -42,7 +49,8 @@ export const columns: ColumnDef<TipoCliente>[] = [
               icon: FaDeleteLeft,
               color: 'text-red-500',
               onClick: (rowData) => {
-                console.log('Borrar', rowData);
+                setOpenDialog(true);
+                setSelectedItem(rowData);
               },
             },
           ]}

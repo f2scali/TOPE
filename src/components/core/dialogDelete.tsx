@@ -8,11 +8,7 @@ interface DialogProps {
     idListaPrecio?: number
   ) => void;
   setOpenDialog: (open: boolean) => void;
-  selectedItem: {
-    id: number;
-    idProducto?: number;
-    idListaPrecio?: number;
-  } | null;
+  selectedItem: any;
 }
 const DialogCustom: FC<DialogProps> = ({
   handleDelete,

@@ -74,4 +74,18 @@ export const thunks = {
       }
     }
   ),
+  deleteTipoCliente: createAsyncThunk(
+    'tipoCliente/deleteTipoCliente',
+    async (id: number, { rejectWithValue }) => {
+      try {
+        const response = await api.patch(`tipoCliente/${id}?estado=0`);
+
+        return response.data;
+      } catch (error: any) {
+        const errorMessage =
+          error.response?.data?.message || 'Error desconocido';
+        return rejectWithValue(errorMessage);
+      }
+    }
+  ),
 };
