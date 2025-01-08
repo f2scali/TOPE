@@ -22,7 +22,7 @@ export const columns = ({
 
   {
     accessorKey: 'DETALLE',
-    header: 'Precio',
+    header: 'Detalle',
     cell: ({ cell }) => <div className="text-left">{`${cell.getValue()}`}</div>,
   },
 
