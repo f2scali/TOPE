@@ -64,6 +64,27 @@ const extraReducers = (builder: any) => {
           state.loadingPayload = false;
           state.error = action.payload as string;
         }
+      ),
+    builder
+      .addCase(
+        thunks.deleteDetalleLista.pending,
+        (state: Partial<DetalleListaState>) => {
+          state.loadingPayload = true;
+        }
+      )
+      .addCase(
+        thunks.deleteDetalleLista.fulfilled,
+        (state: Partial<DetalleListaState>) => {
+          state.loadingPayload = false;
+          state.error = null;
+        }
+      )
+      .addCase(
+        thunks.deleteDetalleLista.rejected,
+        (state: Partial<DetalleListaState>, action: PayloadAction<any>) => {
+          state.loadingPayload = false;
+          state.error = action.payload as string;
+        }
       );
 };
 

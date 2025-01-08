@@ -76,4 +76,19 @@ export const thunks = {
       }
     }
   ),
+
+  deleteListaPrecios: createAsyncThunk(
+    'listaPrecios/deleteListaPrecios',
+    async (id: number, { rejectWithValue }) => {
+      try {
+        const response = await api.patch(`listaPrecios/${id}?estado=0`);
+
+        return response.data;
+      } catch (error: any) {
+        const errorMessage =
+          error.response?.data?.message || 'Error desconocido';
+        return rejectWithValue(errorMessage);
+      }
+    }
+  ),
 };

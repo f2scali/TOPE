@@ -5,7 +5,15 @@ import { ColumnDef } from '@tanstack/react-table';
 import { FaEdit } from 'react-icons/fa';
 import { FaDeleteLeft } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
-export const columns: ColumnDef<Producto>[] = [
+
+interface ColumnsProps {
+  setOpenDialog: (value: boolean) => void;
+  setSelectedItem: (item: Producto) => void;
+}
+export const columns = ({
+  setOpenDialog,
+  setSelectedItem,
+}: ColumnsProps): ColumnDef<Producto>[] => [
   {
     accessorKey: 'id',
     header: 'ID Producto',
@@ -101,7 +109,8 @@ export const columns: ColumnDef<Producto>[] = [
               icon: FaDeleteLeft,
               color: 'text-red-500',
               onClick: (rowData) => {
-                console.log('Borrar', rowData);
+                setOpenDialog(true);
+                setSelectedItem(rowData);
               },
             },
           ]}

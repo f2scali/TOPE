@@ -5,10 +5,18 @@ import { ColumnDef } from '@tanstack/react-table';
 import { FaEdit } from 'react-icons/fa';
 import { FaDeleteLeft } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
-export const columns: ColumnDef<DetalleLista>[] = [
+
+interface ColumnsProps {
+  setOpenDialog: (open: boolean) => void;
+  setSelectedItem: (item: DetalleLista) => void;
+}
+export const columns = ({
+  setOpenDialog,
+  setSelectedItem,
+}: ColumnsProps): ColumnDef<DetalleLista>[] => [
   {
     accessorKey: 'cod_ListaPrecio',
-    header: 'COD Lista',
+    header: 'COD',
     cell: ({ cell }) => <div className="text-left">{`${cell.getValue()}`}</div>,
   },
 
@@ -66,7 +74,8 @@ export const columns: ColumnDef<DetalleLista>[] = [
               icon: FaDeleteLeft,
               color: 'text-red-500',
               onClick: (rowData) => {
-                console.log('Borrar', rowData);
+                setOpenDialog(true);
+                setSelectedItem(rowData);
               },
             },
           ]}

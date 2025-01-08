@@ -2,9 +2,17 @@ import { FC } from 'react';
 import { Dialog, DialogFooter } from '../ui/dialog';
 
 interface DialogProps {
-  handleDelete: any;
-  setOpenDialog: any;
-  selectedItem: any;
+  handleDelete: (
+    id: number,
+    idProducto?: number,
+    idListaPrecio?: number
+  ) => void;
+  setOpenDialog: (open: boolean) => void;
+  selectedItem: {
+    id: number;
+    idProducto?: number;
+    idListaPrecio?: number;
+  } | null;
 }
 const DialogCustom: FC<DialogProps> = ({
   handleDelete,
@@ -26,7 +34,7 @@ const DialogCustom: FC<DialogProps> = ({
                   className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full mr-4"
                   onClick={() => {
                     if (selectedItem) {
-                      handleDelete(selectedItem.id); // Llamar con el ID si selectedItem está definido
+                      handleDelete(selectedItem.id);
                     }
                   }}
                 >

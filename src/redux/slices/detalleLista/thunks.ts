@@ -61,4 +61,32 @@ export const thunks = {
       }
     }
   ),
+
+  deleteDetalleLista: createAsyncThunk(
+    'detalleLista/deleteDetalleLista',
+    async (
+      {
+        id,
+        idProducto,
+        idListaPrecio,
+      }: {
+        id: number;
+        idProducto: number | undefined;
+        idListaPrecio: number | undefined;
+      },
+      { rejectWithValue }
+    ) => {
+      try {
+        const response = await api.patch(
+          `detalle-lista-precios/${id}?producto=${idProducto}&listaPrecio=${idListaPrecio}&estado=0`
+        );
+
+        return response.data;
+      } catch (error: any) {
+        const errorMessage =
+          error.response?.data?.message || 'Error desconocido';
+        return rejectWithValue(errorMessage);
+      }
+    }
+  ),
 };
