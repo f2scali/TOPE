@@ -28,11 +28,11 @@ export const thunks = {
     }
   ),
 
-  fetchAllUsuario: createAsyncThunk(
-    'usuarios/fetchAllUsuario',
+  fetchAllUsuarioVendedor: createAsyncThunk(
+    'usuarios/fetchAllUsuarioVendedor',
     async (_, { rejectWithValue }) => {
       try {
-        const response = await api.get('usuarios/all');
+        const response = await api.get('usuarios/vendedores');
         return {
           usuarios: response.data,
         };

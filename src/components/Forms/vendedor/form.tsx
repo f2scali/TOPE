@@ -33,7 +33,7 @@ const VendedorForm: FC<VendedorFormProps> = ({
   const { usuarios } = useSelector((state: RootState) => state.usuarios);
 
   useEffect(() => {
-    dispatch(UThunks.fetchAllUsuario());
+    dispatch(UThunks.fetchAllUsuarioVendedor());
   }, []);
 
   const { loadingPayload } = useSelector((state: RootState) => state.lineas);
