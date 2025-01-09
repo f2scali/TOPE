@@ -45,7 +45,10 @@ const LineaForm: FC<LineaFormProps> = ({
       default: '',
       required: false,
       hidden: isEdit,
-      schema: z.string(),
+      schema: z.preprocess(
+        (value) => (value === '' ? null : value),
+        z.string().nullable()
+      ),
     },
     {
       name: 'detalle',

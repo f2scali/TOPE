@@ -15,7 +15,7 @@ export const thunks = {
     ) => {
       try {
         const response = await api.get(
-          `linea?page=${currentPage}&search=${search}&limit=${limit}`
+          `linea?page=${currentPage}&search=${search}&limit=${limit}&orderDirection=DESC`
         );
 
         return {
