@@ -4,10 +4,16 @@ import extraReducers from './extraReducers';
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    logout(state) {
+      state.isAuthenticated = false;
+      state.token = null;
+      localStorage.removeItem('token');
+    },
+  },
   extraReducers,
 });
 
-export const {} = authSlice.actions;
+export const { logout } = authSlice.actions;
 
 export default authSlice.reducer;

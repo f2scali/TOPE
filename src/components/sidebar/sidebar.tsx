@@ -1,13 +1,10 @@
 import { cn } from '@/lib/utils';
-// import { SidebarToggle } from '../custom/sidebar-toggle';
-// import { Menu } from '../custom/menu';
-// import Image from 'next/image';
-import Logo from '../../../public/logo1.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/redux/store/store';
 import { toggleSidebar } from '@/redux/slices/sidebar/sidebar.slice';
 import { SidebarToggle } from './sidebarToggle';
 import { Menu } from './menu';
+import LogoutButton from './logoutButton';
 
 export function Sidebar() {
   const sidebar = useSelector((state: RootState) => state.sidebar);
@@ -32,8 +29,8 @@ export function Sidebar() {
             className={cn(
               'transition-transform ease-in-out duration-300 mb-1',
               sidebar?.isOpen === false
-                ? 'translate-x-96 opacity-0 hidden'
-                : 'translate-x-0 opacity-100'
+                ? 'text-lg font-bold'
+                : 'translate-x-0 opacity-100 text-3xl font-bold'
             )}
           >
             TOPE
@@ -41,6 +38,8 @@ export function Sidebar() {
         </figure>
 
         <Menu isOpen={sidebar?.isOpen} />
+
+        <LogoutButton />
       </div>
     </aside>
   );

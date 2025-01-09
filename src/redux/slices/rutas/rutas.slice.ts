@@ -4,10 +4,14 @@ import extraReducers from './extraReducers';
 const rutasSlice = createSlice({
   name: 'rutas',
   initialState,
-  reducers: {},
+  reducers: {
+    clearRoutes(state) {
+      state.rutas = [];
+    },
+  },
   extraReducers,
 });
 
-export const {} = rutasSlice.actions;
+export const { clearRoutes } = rutasSlice.actions;
 
 export default rutasSlice.reducer;

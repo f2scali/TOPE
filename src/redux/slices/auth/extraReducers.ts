@@ -26,11 +26,21 @@ const extraReducers = (builder: any) => {
         state.loading = false;
         state.error = action.payload as string;
       }
-    )
-    .addCase(thunks.logout.fulfilled, (state: AuthState) => {
-      state.isAuthenticated = false;
-      state.token = null;
-    });
+    ),
+    builder
+      .addCase(thunks.logout.pending, (state: AuthState) => {
+        state.loading = true;
+      })
+      .addCase(thunks.logout.fulfilled, (state: AuthState) => {
+        state.isAuthenticated = false;
+        state.loading = false;
+        state.token = null;
+        localStorage.removeItem('token');
+      })
+      .addCase(thunks.logout.rejected, (state: AuthState, action: any) => {
+        state.loading = false;
+        state.error = action.payload || 'Error desconocido';
+      });
 };
 
 export default extraReducers;

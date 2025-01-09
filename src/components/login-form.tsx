@@ -21,7 +21,9 @@ export function LoginForm({
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
-  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
+  const { isAuthenticated, error } = useSelector(
+    (state: RootState) => state.auth
+  );
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -39,7 +41,7 @@ export function LoginForm({
     };
     dispatch(thunks.login(credentials));
   };
-
+  console.log(error);
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
       <Card>
@@ -65,15 +67,11 @@ export function LoginForm({
               <div className="grid gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
-                  {/* <a
-                    href="#"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                  >
-                    Forgot your password?
-                  </a> */}
                 </div>
                 <Input id="password" name="password" type="password" required />
               </div>
+
+              {error ? <small className="text-red-500">{error}</small> : null}
               <Button type="submit" className="w-full">
                 Login
               </Button>
