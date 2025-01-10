@@ -4,7 +4,6 @@ import { AppDispatch, RootState } from '@/redux/store/store';
 import { toggleSidebar } from '@/redux/slices/sidebar/sidebar.slice';
 import { SidebarToggle } from './sidebarToggle';
 import { Menu } from './menu';
-import LogoutButton from './logoutButton';
 
 export function Sidebar() {
   const sidebar = useSelector((state: RootState) => state.sidebar);
@@ -38,8 +37,6 @@ export function Sidebar() {
         </figure>
 
         <Menu isOpen={sidebar?.isOpen} />
-
-        <LogoutButton />
       </div>
     </aside>
   );

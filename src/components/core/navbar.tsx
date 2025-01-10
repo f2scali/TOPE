@@ -1,3 +1,4 @@
+import LogoutButton from '../sidebar/logoutButton';
 import { SheetMenu } from '../sidebar/sheet-menu';
 import { ModeToggle } from './mode-toggle';
 
@@ -14,7 +15,8 @@ export function Navbar({ title }: NavbarProps) {
             <h1 className="font-bold">{title}</h1>
           </div>
 
-          <div className="flex flex-1 items-center justify-end">
+          <div className="flex gap-3 flex-1 items-center justify-end">
+            <LogoutButton />
             <ModeToggle />
           </div>
         </div>

@@ -39,7 +39,10 @@ const ListaDePreciosForm: FC<ListaDePreciosFormProps> = ({
       type: FieldType.Text,
       default: '',
       required: false,
-      schema: z.string(),
+      schema: z.preprocess(
+        (value) => (value === '' ? null : value),
+        z.string().nullable()
+      ),
     },
     {
       name: 'DETALLE',

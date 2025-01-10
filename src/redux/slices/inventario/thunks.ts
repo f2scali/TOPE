@@ -69,7 +69,7 @@ export const thunks = {
         return response.data;
       } catch (error: any) {
         const errorMessage =
-          error.response?.data?.message[0] || 'Error desconocido';
+          error.response?.data?.message || 'Error desconocido';
         return rejectWithValue(errorMessage);
       }
     }

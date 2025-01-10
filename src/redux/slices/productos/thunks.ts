@@ -50,7 +50,7 @@ export const thunks = {
       } catch (error: any) {
         console.log(error);
         return rejectWithValue(
-          error.response.data.message[0] || 'Error desconocido'
+          error.response.data.message || 'Error desconocido'
         );
       }
     }

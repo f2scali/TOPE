@@ -1,5 +1,5 @@
 export interface TipoCliente {
   id: number;
-  codTipoCliente: string;
+  codTipoCliente: string | null;
   Detalle: string;
 }

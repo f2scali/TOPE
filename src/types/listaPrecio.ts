@@ -1,5 +1,5 @@
 export interface ListaPrecio {
   id: number;
-  codLista: string;
+  codLista: string | null;
   DETALLE: string;
 }

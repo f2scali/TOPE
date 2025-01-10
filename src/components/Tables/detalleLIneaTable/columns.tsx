@@ -17,7 +17,10 @@ export const columns = ({
   {
     accessorKey: 'codDetLinea',
     header: 'COD',
-    cell: ({ cell }) => <div className="text-left">{`${cell.getValue()}`}</div>,
+    cell: ({ cell }) => {
+      const value = cell.getValue();
+      return <div className="text-left">{`${value ?? 'N/A'}`}</div>;
+    },
   },
 
   {

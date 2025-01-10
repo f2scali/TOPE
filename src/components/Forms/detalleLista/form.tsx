@@ -50,7 +50,6 @@ const DetalleListaForm: FC<DetalleListaFormProps> = ({
       label: 'COD Lista de Precio',
       type: FieldType.Text,
       default: '',
-      hidden: isEdit,
       required: true,
       schema: z.preprocess(emptyToUndefined, z.string()),
     },
@@ -131,7 +130,6 @@ const DetalleListaForm: FC<DetalleListaFormProps> = ({
   });
 
   const onSubmit = async (data: FormSchemaType) => {
-
     const action = isEdit
       ? thunks.updateDetalleLista({ id: stateId, data })
       : thunks.createDetalleLista(data);
@@ -155,6 +153,7 @@ const DetalleListaForm: FC<DetalleListaFormProps> = ({
       }
     }
   };
+  const formStateErrors = form?.formState?.errors?.root;
   return (
     <form
       className="flex flex-col mb-10 w-full"
@@ -163,9 +162,15 @@ const DetalleListaForm: FC<DetalleListaFormProps> = ({
       <div className="grid gap-x-3 md:grid-cols-3 text-center md:text-left  lg:grid-cols-5">
         {formGenerator.fields(form)}
       </div>
-      {form.formState.errors.root && (
+      {formStateErrors?.message && (
         <div className="text-red-500 text-sm mt-2">
-          {form.formState.errors.root.message}
+          {Array.isArray(formStateErrors.message) ? (
+            formStateErrors.message.map((error: string) => (
+              <div key={error}>{error}</div>
+            ))
+          ) : (
+            <div>{formStateErrors.message}</div>
+          )}
         </div>
       )}
       {loadingPayload ? (

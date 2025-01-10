@@ -44,7 +44,6 @@ const SublineaForm: FC<SublineaFormProps> = ({
       type: FieldType.Text,
       default: '',
       required: false,
-      hidden: isEdit,
       schema: z.preprocess(
         (value) => (value === '' ? null : value),
         z.string().nullable()

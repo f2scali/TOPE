@@ -1,7 +1,7 @@
 import { SubLinea } from './sublinea';
 
 export interface DetalleLinea {
-  codDetLinea: string;
+  codDetLinea: string | null;
   id: number;
   detalle: string;
   id_sublinea: number;

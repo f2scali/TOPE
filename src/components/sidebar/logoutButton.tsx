@@ -20,7 +20,7 @@ const LogoutButton = () => {
     <ButtonLoading />
   ) : (
     <Button onClick={handleLogout}>
-      {!sidebar?.isOpen === false ? (
+      {sidebar?.isOpen === false ? (
         <>
           <IoIosExit />
           <span style={{ marginLeft: '8px' }}>Cerrar sesión</span>
