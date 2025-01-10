@@ -6,7 +6,7 @@ import {
   setCurrentPage,
   setLimit,
   setSearch,
-} from '@/redux/slices/listaPrecios/listaPrecios.slice';
+} from '@/redux/slices/sublinea/sublinea.slice';
 import { thunks } from '@/redux/slices/sublinea/thunks';
 import { thunks as LThunks } from '@/redux/slices/linea/thunks';
 import { AppDispatch, RootState } from '@/redux/store/store';

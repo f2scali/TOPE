@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import initialState from './state';
 import extraReducers from './extraReducers';
-import subLineasReducers from './reducers';
+import detalleLineaReducer from './reducers';
+
 const detalleLineaSlice = createSlice({
   name: 'sublinea',
   initialState,
-  reducers: subLineasReducers,
+  reducers: detalleLineaReducer,
   extraReducers,
 });
 

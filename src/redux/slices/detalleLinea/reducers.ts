@@ -1,18 +1,18 @@
 import { PayloadAction } from '@reduxjs/toolkit';
-import { SubLineaState } from './state';
+import { DetalleLineaState } from './state';
 
-const subLineasReducers = {
-  setSearch(state: SubLineaState, action: PayloadAction<string>) {
+const detalleLineaReducer = {
+  setSearch(state: DetalleLineaState, action: PayloadAction<string>) {
     state.search = action.payload;
   },
 
-  setCurrentPage(state: SubLineaState, action: PayloadAction<number>) {
+  setCurrentPage(state: DetalleLineaState, action: PayloadAction<number>) {
     state.currentPage = action.payload;
   },
 
-  setLimit(state: SubLineaState, action: PayloadAction<number>) {
+  setLimit(state: DetalleLineaState, action: PayloadAction<number>) {
     state.limit = action.payload;
   },
 };
 
-export default subLineasReducers;
+export default detalleLineaReducer;
