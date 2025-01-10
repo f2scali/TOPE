@@ -58,7 +58,6 @@ const Clientes = () => {
 
   const handleDelete = async (id: number) => {
     try {
-      console.log('Eliminando item:', id);
       const response = await dispatch(thunks.deleteCliente(id));
 
       if (response.meta.requestStatus === 'fulfilled') {

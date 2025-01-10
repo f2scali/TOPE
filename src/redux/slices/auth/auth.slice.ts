@@ -8,7 +8,9 @@ const authSlice = createSlice({
     logout(state) {
       state.isAuthenticated = false;
       state.token = null;
+      state.rolId = null;
       localStorage.removeItem('token');
+      localStorage.removeItem('rolId');
     },
   },
   extraReducers,

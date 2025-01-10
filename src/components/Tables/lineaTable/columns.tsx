@@ -51,7 +51,6 @@ export const columns = ({
                   navigate(`/linea/editar/${lineaData.id}`, {
                     state: row.original,
                   });
-                  console.log('Edit', lineaData);
                 },
               },
 

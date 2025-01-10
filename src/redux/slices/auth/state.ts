@@ -5,6 +5,7 @@ const initialState: AuthState = {
   token: localStorage.getItem('token'),
   loading: false,
   error: null,
+  rolId: localStorage.getItem('rolId'),
 };
 
 export default initialState;

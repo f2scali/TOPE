@@ -27,7 +27,7 @@ export const thunks = {
           credentials
         );
         const token = response.data.access_token;
-
+        response.data.rolId;
         const decoded: { exp: number } = jwtDecode(token);
         const currentTime = Math.floor(Date.now() / 1000);
         const timeToExpire = (decoded.exp - currentTime) * 1000;

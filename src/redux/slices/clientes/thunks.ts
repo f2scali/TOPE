@@ -49,7 +49,6 @@ export const thunks = {
         const response = await api.post('clientes', cliente);
         return response.data;
       } catch (error: any) {
-        console.log(error);
         return rejectWithValue(
           error.response.data.message[0] || 'Error desconocido'
         );

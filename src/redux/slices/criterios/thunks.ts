@@ -48,7 +48,6 @@ export const thunks = {
         const response = await api.post('criterio', Criterio);
         return response.data;
       } catch (error: any) {
-        console.log(error);
         return rejectWithValue(
           error.response.data.message || 'Error desconocido'
         );

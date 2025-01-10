@@ -62,7 +62,7 @@ export const columns = ({
               color: 'text-blue-500',
               onClick: () => {
                 const clienteId = row.original.id;
-                console.log(clienteId);
+
                 navigate(`/clientes/editar/${clienteId}`, {
                   state: row.original,
                 });

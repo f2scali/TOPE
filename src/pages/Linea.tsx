@@ -54,7 +54,6 @@ const Linea = () => {
 
   const handleDelete = async (id: number) => {
     try {
-      console.log('Eliminando item:', id);
       const response = await dispatch(thunks.deleteLinea(id));
 
       if (response.meta.requestStatus === 'fulfilled') {

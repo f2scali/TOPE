@@ -28,13 +28,14 @@ import EditarPresupuesto from '@/pages/EditarPpto';
 import EditarCliente from '@/pages/EditarCliente';
 export const AppRouter = () => {
   const { rutas } = useSelector((state: RootState) => state.rutas);
+  const { rolId } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch<AppDispatch>();
 
   const LazyComponent = (name: string) =>
     lazy(() => import(`../pages/${name}.tsx`));
 
   useEffect(() => {
-    dispatch(rutasThunks.fetchRutas());
+    dispatch(rutasThunks.fetchRutas({ rolId }));
   }, [dispatch]);
 
   return (

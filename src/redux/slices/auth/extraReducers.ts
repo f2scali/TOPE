@@ -14,9 +14,11 @@ const extraReducers = (builder: any) => {
       (state: AuthState, action: PayloadAction<any>) => {
         state.isAuthenticated = true;
         state.token = action.payload.access_token;
+        state.rolId = action.payload.rolId;
         state.loading = false;
 
         localStorage.setItem('token', action.payload.access_token);
+        localStorage.setItem('rolId', action.payload.rolId);
       }
     )
     .addCase(
@@ -36,6 +38,7 @@ const extraReducers = (builder: any) => {
         state.loading = false;
         state.token = null;
         localStorage.removeItem('token');
+        localStorage.removeItem('rolId');
       })
       .addCase(thunks.logout.rejected, (state: AuthState, action: any) => {
         state.loading = false;

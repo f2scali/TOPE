@@ -56,7 +56,6 @@ const DetalleListaPrecio = () => {
     idListaPrecio?: number
   ) => {
     try {
-      console.log('Eliminando item:', id);
       const response = await dispatch(
         thunks.deleteDetalleLista({ id, idProducto, idListaPrecio })
       );

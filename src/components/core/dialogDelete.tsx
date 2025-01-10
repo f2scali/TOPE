@@ -15,7 +15,6 @@ const DialogCustom: FC<DialogProps> = ({
   setOpenDialog,
   selectedItem,
 }) => {
-  console.log(selectedItem, 'selectedItem');
   return (
     <Dialog>
       <div className="fixed inset-0 bg-black bg-opacity-50 z-50">

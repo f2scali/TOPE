@@ -41,7 +41,7 @@ export function LoginForm({
     };
     dispatch(thunks.login(credentials));
   };
-  console.log(error);
+
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
       <Card>
