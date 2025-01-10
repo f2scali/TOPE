@@ -11,29 +11,57 @@ import { Button } from '../ui/button';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store/store';
 import { Link } from 'react-router-dom';
-import { Rutas } from '@/types/rutas';
-import { FaBoxArchive } from 'react-icons/fa6';
+import { FaBox, FaList, FaUsers } from 'react-icons/fa6';
 import { CollapseMenuButton } from './collapse-menu-button';
+import { adminMenu, MenuType, vendedorMenu } from '@/lib/menuConfig';
+import { FaBalanceScale, FaListAlt } from 'react-icons/fa';
+import { MdGroup, MdInventory } from 'react-icons/md';
+import { useEffect, useState } from 'react';
 
 interface MenuProps {
   isOpen: boolean | undefined;
 }
-interface MenusRespose {
-  rutas: Rutas[];
-}
+
+const iconMap = {
+  FaBox: FaBox,
+  FaList: FaList,
+  FaBalanceScale: FaBalanceScale,
+  FaListAlt: FaListAlt,
+  FaUsers: FaUsers,
+  MdInventory: MdInventory,
+  MdGroup: MdGroup,
+};
 export function Menu({ isOpen }: MenuProps) {
-  //   const pathname = usePathname();
-  const { rutas, loading, error } = useSelector(
-    (state: RootState) => state.rutas
-  );
+  const { loading, error } = useSelector((state: RootState) => state.rutas);
+
+  const rolId = localStorage.getItem('rolId');
+
+  const [menuItems, setMenuItems] = useState<MenuType[]>([]);
+
+  const getMenu = () => {
+    if (rolId === '1') {
+      setMenuItems(adminMenu);
+    } else {
+      setMenuItems(vendedorMenu);
+    }
+  };
+
+  useEffect(() => {
+    getMenu();
+  }, [rolId]);
+
+  console.log(menuItems);
+  if (!menuItems) return <p>Sin acceso</p>;
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
   return (
     <nav className="mt-8 h-full w-full">
       <ul className="flex flex-col min-h-[calc(100vh-48px-36px-16px-32px)] lg:min-h-[calc(100vh-32px-40px-32px)] items-start space-y-1 px-2">
-        {rutas?.map(({ id, descripcion, path, subrutas }) =>
-          subrutas.length === 0 ? (
+        {menuItems.map(({ id, descripcion, path, icon, subrutas }) => {
+          const Icon = iconMap[icon as keyof typeof iconMap]; // Usamos el string para obtener el componente del ícono
+
+          return subrutas.length === 0 ? (
             <li className="w-full" key={id}>
               <TooltipProvider disableHoverableContent>
                 <Tooltip delayDuration={100}>
@@ -45,7 +73,8 @@ export function Menu({ isOpen }: MenuProps) {
                     >
                       <Link to={path}>
                         <span className={cn(isOpen === false ? '' : 'mr-4')}>
-                          <FaBoxArchive color="hsl(225.9 70.7% 40.2%)" />
+                          <Icon color="hsl(225.9 70.7% 40.2%)" />{' '}
+                          {/* Renderiza dinámicamente el ícono */}
                         </span>
 
                         <p
@@ -78,8 +107,8 @@ export function Menu({ isOpen }: MenuProps) {
                 isOpen={isOpen}
               />
             </div>
-          )
-        )}
+          );
+        })}
       </ul>
     </nav>
   );
