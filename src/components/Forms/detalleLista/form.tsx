@@ -50,6 +50,7 @@ const DetalleListaForm: FC<DetalleListaFormProps> = ({
       label: 'COD Lista de Precio',
       type: FieldType.Text,
       default: '',
+      hidden: isEdit,
       required: true,
       schema: z.preprocess(emptyToUndefined, z.string()),
     },
@@ -141,6 +142,9 @@ const DetalleListaForm: FC<DetalleListaFormProps> = ({
       form.setError('root', { message: reduxError });
     }
     if (result.meta.requestStatus === 'fulfilled') {
+      if (isEdit) {
+        alert('Detalle de lista actualizado correctamente');
+      }
       if (!isEdit) {
         dispatch(
           thunks.fetchDetalleLista({ currentPage: 1, search: '', limit: 10 })

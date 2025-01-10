@@ -38,6 +38,7 @@ const TipoInventarioForm: FC<TipoInventarioFormProps> = ({
       label: 'Codigo',
       type: FieldType.Text,
       default: '',
+      hidden: isEdit,
       required: false,
       schema: z.preprocess(emptyToUndefined, z.string()),
     },
@@ -73,6 +74,9 @@ const TipoInventarioForm: FC<TipoInventarioFormProps> = ({
     }
 
     if (result.meta.requestStatus === 'fulfilled') {
+      if (isEdit) {
+        alert('Tipo de inventario actualizado correctamente');
+      }
       if (!isEdit) {
         dispatch(
           thunks.fetchInventario({ currentPage: 1, search: '', limit: 10 })

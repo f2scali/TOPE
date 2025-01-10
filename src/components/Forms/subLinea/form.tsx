@@ -43,6 +43,7 @@ const SublineaForm: FC<SublineaFormProps> = ({
       label: 'Codigo',
       type: FieldType.Text,
       default: '',
+      hidden: isEdit,
       required: false,
       schema: z.preprocess(
         (value) => (value === '' ? null : value),
@@ -96,6 +97,9 @@ const SublineaForm: FC<SublineaFormProps> = ({
     }
 
     if (result.meta.requestStatus === 'fulfilled') {
+      if (isEdit) {
+        alert('Sublinea actualizada correctamente');
+      }
       if (!isEdit) {
         dispatch(
           thunks.fetchSublineas({ currentPage: 1, search: '', limit: 10 })

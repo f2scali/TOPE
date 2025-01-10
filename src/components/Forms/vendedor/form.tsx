@@ -110,6 +110,9 @@ const VendedorForm: FC<VendedorFormProps> = ({
     }
 
     if (result.meta.requestStatus === 'fulfilled') {
+      if (isEdit) {
+        alert('Vendedor actualizado correctamente');
+      }
       if (!isEdit) {
         dispatch(
           thunks.fetchVendedores({ currentPage: 1, search: '', limit: 10 })

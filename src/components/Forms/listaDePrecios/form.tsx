@@ -38,6 +38,7 @@ const ListaDePreciosForm: FC<ListaDePreciosFormProps> = ({
       label: 'Codigo',
       type: FieldType.Text,
       default: '',
+      hidden: isEdit,
       required: false,
       schema: z.preprocess(
         (value) => (value === '' ? null : value),
@@ -76,6 +77,9 @@ const ListaDePreciosForm: FC<ListaDePreciosFormProps> = ({
     }
 
     if (result.meta.requestStatus === 'fulfilled') {
+      if (isEdit) {
+        alert('Lista de precio actualizada correctamente');
+      }
       if (!isEdit) {
         dispatch(
           thunks.fetchListaPrecios({ currentPage: 1, search: '', limit: 10 })

@@ -38,6 +38,7 @@ const TipoClientesForm: FC<TipoClientesFormProps> = ({
       label: 'Codigo',
       type: FieldType.Text,
       default: '',
+      hidden: isEdit,
       required: false,
       schema: z.preprocess(
         (value) => (value === '' ? null : value),
@@ -76,6 +77,9 @@ const TipoClientesForm: FC<TipoClientesFormProps> = ({
     }
 
     if (result.meta.requestStatus === 'fulfilled') {
+      if (isEdit) {
+        alert('Tipo de cliente actualizado correctamente');
+      }
       if (!isEdit) {
         dispatch(
           thunks.fetchTipoCliente({ currentPage: 1, search: '', limit: 10 })

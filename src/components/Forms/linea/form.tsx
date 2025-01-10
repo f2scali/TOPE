@@ -43,6 +43,7 @@ const LineaForm: FC<LineaFormProps> = ({
       label: 'Codigo',
       type: FieldType.Text,
       default: '',
+      hidden: isEdit,
       required: false,
       schema: z.preprocess(
         (value) => (value === '' ? null : value),
@@ -96,6 +97,9 @@ const LineaForm: FC<LineaFormProps> = ({
     }
 
     if (result.meta.requestStatus === 'fulfilled') {
+      if (isEdit) {
+        alert('Linea actualizada correctamente');
+      }
       if (!isEdit) {
         dispatch(thunks.fetchLineas({ currentPage: 1, search: '', limit: 10 }));
         dispatch(setCurrentPage(1));

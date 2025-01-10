@@ -42,6 +42,7 @@ const UnidadMedForm: FC<UnidadMedFormProps> = ({
       name: 'codUnidadMed',
       label: 'Codigo',
       type: FieldType.Text,
+      hidden: isEdit,
       default: '',
       required: false,
       schema: z.preprocess(
@@ -96,6 +97,9 @@ const UnidadMedForm: FC<UnidadMedFormProps> = ({
     }
 
     if (result.meta.requestStatus === 'fulfilled') {
+      if (isEdit) {
+        alert('Unidad de medida actualizada correctamente');
+      }
       if (!isEdit) {
         dispatch(
           thunks.fetchUnidadMed({ currentPage: 1, search: '', limit: 10 })

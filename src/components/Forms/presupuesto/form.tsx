@@ -117,6 +117,9 @@ const PresupuestoForm: FC<PresupuestoFormProps> = ({
       form.setError('root', { message: reduxError });
     }
     if (result.meta.requestStatus === 'fulfilled') {
+      if (isEdit) {
+        alert('Presupuesto actualizado correctamente');
+      }
       if (!isEdit) {
         dispatch(thunks.fetchPpto({ currentPage: 1, search: '', limit: 10 }));
         dispatch(setCurrentPage(1));

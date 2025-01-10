@@ -51,6 +51,7 @@ const ClientesForm: FC<ClientesFormProps> = ({
       label: 'NIT',
       type: FieldType.Text,
       default: '',
+      hidden: isEdit,
       required: true,
       schema: z.preprocess(emptyToUndefined, z.string()),
     },
@@ -138,6 +139,9 @@ const ClientesForm: FC<ClientesFormProps> = ({
       form.setError('root', { message: reduxError });
     }
     if (result.meta.requestStatus === 'fulfilled') {
+      if (isEdit) {
+        alert('Cliente actualizado correctamente');
+      }
       if (!isEdit) {
         dispatch(
           CLThunks.fetchClientes({ currentPage: 1, search: '', limit: 10 })

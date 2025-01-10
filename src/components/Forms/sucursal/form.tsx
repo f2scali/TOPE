@@ -43,6 +43,7 @@ const SucursalForm: FC<SucursalFormProps> = ({
       label: 'COD',
       type: FieldType.Text,
       default: '',
+      hidden: isEdit,
       required: false,
       schema: z.preprocess(
         (value) => (value === '' ? null : value),
@@ -117,6 +118,9 @@ const SucursalForm: FC<SucursalFormProps> = ({
       form.setError('root', { message: reduxError });
     }
     if (result.meta.requestStatus === 'fulfilled') {
+      if (isEdit) {
+        alert('Sucursal actualizada correctamente');
+      }
       if (!isEdit) {
         dispatch(
           thunks.fetchSucursal({ currentPage: 1, search: '', limit: 10 })

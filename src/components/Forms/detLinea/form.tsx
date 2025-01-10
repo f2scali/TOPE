@@ -45,6 +45,7 @@ const DetLineaForm: FC<DetLineaFormProps> = ({
       label: 'Codigo',
       type: FieldType.Text,
       default: '',
+      hidden: isEdit,
       required: false,
       schema: z.preprocess(
         (value) => (value === '' ? null : value),
@@ -98,6 +99,9 @@ const DetLineaForm: FC<DetLineaFormProps> = ({
     }
 
     if (result.meta.requestStatus === 'fulfilled') {
+      if (isEdit) {
+        alert('Detalle de la linea actualizada correctamente');
+      }
       if (!isEdit) {
         dispatch(
           thunks.fetchDetalleLineas({ currentPage: 1, search: '', limit: 10 })

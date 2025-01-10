@@ -199,6 +199,9 @@ const ProductoForm: FC<ProductoFormProps> = ({
     }
 
     if (result.meta.requestStatus === 'fulfilled') {
+      if (isEdit) {
+        alert('Producto actualizado correctamente');
+      }
       if (!isEdit) {
         dispatch(
           thunks.fetchProductos({ currentPage: 1, search: '', limit: 10 })

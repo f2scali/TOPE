@@ -43,6 +43,7 @@ const CriterioForm: FC<CriterioFormProps> = ({
       label: 'Codigo',
       type: FieldType.Text,
       default: '',
+      hidden: isEdit,
       required: false,
       schema: z.preprocess(
         (value) => (value === '' ? null : value),
@@ -96,6 +97,9 @@ const CriterioForm: FC<CriterioFormProps> = ({
     }
 
     if (result.meta.requestStatus === 'fulfilled') {
+      if (isEdit) {
+        alert('Criterio actualizado correctamente');
+      }
       if (!isEdit) {
         dispatch(
           thunks.fetchCriterios({ currentPage: 1, search: '', limit: 10 })

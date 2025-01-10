@@ -31,7 +31,7 @@ import {
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['sidebar', 'rutas', 'auth'],
+  whitelist: ['sidebar'],
 };
 
 const persistedReducer = persistReducer(persistConfig, sidebarSLice);
