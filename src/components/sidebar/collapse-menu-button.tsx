@@ -136,7 +136,12 @@ export function CollapseMenuButton({
                   <div className="flex items-center">
                     <span>
                       {Icon ? (
-                        <Icon className="mr-4" color="hsl(225.9 70.7% 40.2%)" />
+                        <Icon
+                          className="mr-4"
+                          color={
+                            iconColor ? iconColor : 'hsl(225.9 70.7% 40.2%)'
+                          }
+                        />
                       ) : null}{' '}
                     </span>
                     <p
