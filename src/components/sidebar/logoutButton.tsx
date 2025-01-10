@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '../ui/button';
 import { IoIosExit } from 'react-icons/io';
 import { ButtonLoading } from '../ui/button-loading';
+import { useMediaQuery } from 'react-responsive';
 const LogoutButton = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
@@ -16,14 +17,22 @@ const LogoutButton = () => {
       navigate('/login');
     }
   };
+
+  const isMediumOrSmallScreen = useMediaQuery({ maxWidth: 1024 });
   return loading ? (
     <ButtonLoading />
   ) : (
     <Button onClick={handleLogout}>
       {sidebar?.isOpen === false ? (
         <>
-          <IoIosExit />
-          <span style={{ marginLeft: '8px' }}>Cerrar sesión</span>
+          {isMediumOrSmallScreen ? (
+            <IoIosExit />
+          ) : (
+            <>
+              <IoIosExit />
+              <span style={{ marginLeft: '8px' }}>Cerrar sesión</span>
+            </>
+          )}
         </>
       ) : (
         <IoIosExit />
