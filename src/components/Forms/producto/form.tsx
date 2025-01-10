@@ -58,7 +58,7 @@ const ProductoForm: FC<ProductoFormProps> = ({
     },
     {
       name: 'id_ext_item',
-      label: 'COD Externo',
+      label: 'Extension',
       type: FieldType.Text,
       default: '',
       required: false,

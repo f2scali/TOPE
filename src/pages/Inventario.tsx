@@ -79,8 +79,8 @@ const Inventario = () => {
   });
 
   return (
-    <ContentLayout title="Inventario">
-      <h1 className="text-3xl text-left mb-4 font-bold">Inventario</h1>
+    <ContentLayout title="Tipo inventario">
+      <h1 className="text-3xl text-left mb-4 font-bold">Tipo Inventario</h1>
       <TipoInventarioForm setLocalSearch={setLocalSearch} />
       <DataTable
         columns={tableColumns}

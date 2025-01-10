@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { PiDotOutlineFill } from 'react-icons/pi';
 import {
   Collapsible,
   CollapsibleContent,
@@ -23,25 +22,24 @@ import {
   TooltipTrigger,
 } from '../ui/tooltip';
 
-import { FaBoxArchive, FaChevronDown, FaMinus } from 'react-icons/fa6';
-import { Rutas, SubRutas } from '@/types/rutas';
+import { FaChevronDown, FaMinus } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import { DropdownMenuArrow } from '@radix-ui/react-dropdown-menu';
+import { MenuType } from '@/lib/menuConfig';
+import { iconMap } from './menu';
 
 interface CollapseMenuButtonProps {
   isOpen: boolean | undefined;
 }
 export function CollapseMenuButton({
   descripcion,
-  path,
+  icon,
   subrutas,
   isOpen,
-}: Rutas & CollapseMenuButtonProps) {
-  //   const isSubMenuActive = subrutas?.some((submenu: SubRutas) =>
-  //     submenu.active === undefined ? submenu.href === pathname : submenu.active
-  //   );
+  iconColor,
+}: MenuType & CollapseMenuButtonProps) {
   const [isCollapsed, setIsCollapsed] = useState<boolean | undefined>(false);
-
+  const Icon = iconMap[icon as keyof typeof iconMap];
   return isOpen ? (
     <Collapsible
       open={isCollapsed}
@@ -55,10 +53,14 @@ export function CollapseMenuButton({
         <Button variant={'ghost'} className="w-full justify-start h-10">
           <div className="w-full items-center flex justify-between">
             <div className="flex items-center">
-              <span className="mr-4">
-                <FaBoxArchive color="hsl(225.9 70.7% 40.2%)" />
+              <span>
+                {Icon ? (
+                  <Icon
+                    className="mr-4"
+                    color={iconColor ? iconColor : 'hsl(225.9 70.7% 40.2%)'}
+                  />
+                ) : null}{' '}
               </span>
-
               <p
                 className={cn(
                   'max-w-[150px] truncate',
@@ -127,14 +129,15 @@ export function CollapseMenuButton({
           <TooltipTrigger asChild>
             <DropdownMenuTrigger asChild>
               <Button
-                // variant={active ? 'secondary' : 'ghost'}
                 variant={'ghost'}
                 className="w-full justify-start h-10 mb-1"
               >
                 <div className="w-full items-center flex justify-between">
                   <div className="flex items-center">
-                    <span className={cn(isOpen === false ? '' : 'mr-4')}>
-                      <FaBoxArchive color="hsl(225.9 70.7% 40.2%)" />
+                    <span>
+                      {Icon ? (
+                        <Icon className="mr-4" color="hsl(225.9 70.7% 40.2%)" />
+                      ) : null}{' '}
                     </span>
                     <p
                       className={cn(
